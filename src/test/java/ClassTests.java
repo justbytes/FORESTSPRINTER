@@ -32,7 +32,7 @@ class ClassTests
 	@Test
 	void itemTests()
 	{
-        // Create an Item object
+        
 		Item item = new Item("Eye glass", "An item you can look through", 10, 100, 30, "Rare");
         // Data tests
         assertEquals("Eye glass", item.getName());
@@ -41,6 +41,7 @@ class ClassTests
 		assertEquals(100, item.getCoords()[0]);
 		assertEquals(30, item.getCoords()[1]);
 		assertEquals("Rare", item.getStatus());
+        
 
         // Clothing tests   
         Clothing clothing = new Clothing("Shirt", "A shirt you can wear", 10, 100, 30, "Common", 10, "top");
