@@ -3,16 +3,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 
-// Classes to be tested
-import com.game.Characters.Animal;
 import com.game.Characters.Character;
-import com.game.Characters.Player;
-import com.game.Items.Clothing;
-import com.game.Items.Consumable;
+import com.game.Characters.subclasses.Animal;
+import com.game.Characters.subclasses.Player;
 import com.game.Items.Item;
-import com.game.Items.Weapon;
+import com.game.Items.subclasses.Clothing;
+import com.game.Items.subclasses.Consumable;
+import com.game.Items.subclasses.Tool;
+import com.game.Items.subclasses.Weapon;
 import com.game.Merchants.Merchant;
-import com.game.Items.Tool;
 
 /**
  * Lead Author(s):
@@ -23,7 +22,7 @@ import com.game.Items.Tool;
  * Responsibilities of class:
  * Tests the classes in the project
  */
-class ClassTests
+class ModelTests
 {
 
 	/**

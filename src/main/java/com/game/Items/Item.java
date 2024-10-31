@@ -18,6 +18,7 @@ public class Item {
     private int yCoords;
     private int price;
     private String name;
+    
 
     /**
      * Constructor for the Item class

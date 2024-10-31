@@ -1,0 +1,53 @@
+Name: Cloth Shirt
+Description: A shirt made of cloth.
+Price: 10
+X: 0
+Y: 0
+Status: Common
+Protection: 5
+Type: Top
+
+Name: Cloth Pants
+Description: Pants made of cloth.
+Price: 10
+X: 0
+Y: 0
+Status: Common
+Protection: 5
+Type: Bottom
+
+Name: Leather Armor
+Description: Armor made of leather.
+Price: 250
+X: 0
+Y: 0
+Status: Uncommon
+Protection: 10
+Type: Top
+
+Name: Leather Pants
+Description: Pants made of leather.
+Price: 250
+X: 0
+Y: 0
+Status: Uncommon
+Protection: 10
+Type: Bottom
+
+Name: Chainmail
+Description: Armor made of chainmail.
+Price: 600
+X: 0
+Y: 0
+Status: Legendary
+Protection: 20
+Type: Top
+
+Name: Chainmail Pants
+Description: Pants made of chainmail.
+Price: 600
+X: 0
+Y: 0
+Status: Legendary
+Protection: 20
+Type: Bottom

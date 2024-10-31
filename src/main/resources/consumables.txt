@@ -1,0 +1,39 @@
+Name: Healing Potion
+Description: A potion that heals 75 health.
+Price: 500
+X: 0
+Y: 0
+Status: Legendary
+HealingProps: 75
+
+Name: Beef Stew
+Description: A stew that heals 50 health.
+Price: 100
+X: 0
+Y: 0
+Status: Rare
+HealingProps: 40
+
+Name: Apple
+Description: An apple that heals 15 health.
+Price: 50
+X: 0
+Y: 0
+Status: Uncommon
+HealingProps: 15
+
+Name: Bread
+Description: A loaf of bread that heals 10 health.
+Price: 20
+X: 0
+Y: 0
+Status: Common
+HealingProps: 10
+
+Name: Cheese
+Description: A block of cheese that heals 10 health.
+Price: 20
+X: 0
+Y: 0
+Status: Common
+HealingProps: 10

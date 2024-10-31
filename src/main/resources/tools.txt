@@ -1,0 +1,39 @@
+Name: Fishing Rod
+Description: A long rod with a hook and a line.
+Price: 10
+X: 0
+Y: 0
+Status: Common
+Utility: Fishing
+
+Name: Pickaxe
+Description: A heavy pickaxe with a sharp blade and a heavy handle.
+Price: 10
+X: 0
+Y: 0
+Status: Common
+Utility: Mining
+
+Name: Axe
+Description: A small axe with a sharp blade and a light handle.
+Price: 5
+X: 0
+Y: 0
+Status: Common
+Utility: Woodcutting
+
+Name: Rope
+Description: A pair of glasses with a gold frame and lenses.
+Price: 100
+X: 0
+Y: 0
+Status: Rare
+Utility: Tying
+
+Name: Work Bench
+Description: A wooden bench with a sharp blade and a light handle.
+Price: 300
+X: 0
+Y: 0
+Status: Legendary
+Utility: Crafting

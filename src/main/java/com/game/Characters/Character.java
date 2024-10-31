@@ -1,5 +1,5 @@
 package com.game.Characters;
-import com.game.Items.Weapon;
+import com.game.Items.subclasses.Weapon;
 
 /**
  * Lead Author(s):
