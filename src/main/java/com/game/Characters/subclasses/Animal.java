@@ -13,6 +13,7 @@ import com.game.Items.subclasses.Weapon;
  */
 public class Animal extends Character {
     // Instance variables
+    private static Weapon weapon = new Weapon("Bite", "A bite from an animal", 0, 0, 0, "Common", 15);
     private boolean rabid;
 
     /**
@@ -25,7 +26,7 @@ public class Animal extends Character {
      * @param weapon
      * @param rabid
      */
-    public Animal(String name, int health, int xCoord, int yCoord, int movementSpeed, Weapon weapon, boolean rabid) {
+    public Animal(String name, int health, int xCoord, int yCoord, int movementSpeed, boolean rabid) {
         super(name, health, xCoord, yCoord, movementSpeed, weapon);
         this.rabid = rabid;
     }

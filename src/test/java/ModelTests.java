@@ -143,7 +143,7 @@ class ModelTests
         assertEquals(newWeapon, player.getWeapon());
 
         // Animal tests
-        Animal animal = new Animal("Bear", 100, 100, 100, 25, bite, false);
+        Animal animal = new Animal("Bear", 100, 100, 100, 25, false);
         animal.decreaseHealth(player.getAttackPower());
         assertEquals(45, animal.getHealth());
         assertEquals(false, animal.isRabid());

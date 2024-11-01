@@ -1,0 +1,34 @@
+Name: Wolf
+Health: 100
+X: 0
+Y: 0
+Movement Speed: 10
+Rabid: False
+
+Name: Bear
+Health: 150
+X: 0
+Y: 0
+Movement Speed: 10
+Rabid: False
+
+Name: Zombie Bear
+Health: 150
+X: 0
+Y: 0
+Movement Speed: 10
+Rabid: True
+
+Name: Snake
+Health: 50
+X: 0
+Y: 0
+Movement Speed: 5
+Rabid: False
+
+Name: Panther
+Health: 75
+X: 0
+Y: 0
+Movement Speed: 15
+Rabid: False

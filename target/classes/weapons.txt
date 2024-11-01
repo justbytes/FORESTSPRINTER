@@ -77,4 +77,3 @@ X: 0
 Y: 0
 Status: Common
 Damage: 15
-

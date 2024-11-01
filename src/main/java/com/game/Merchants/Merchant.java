@@ -31,7 +31,7 @@ public class Merchant {
      * @param inventory
      * @param favoriteItemType
      */
-    public Merchant(String name, int x, int y, ArrayList<Item> inventory, Class<? extends Item> favoriteItemType) {
+    public Merchant(String name, int x, int y, ArrayList<? extends Item> inventory, Class<? extends Item> favoriteItemType) {
         this.name = name;
         this.xCoord = x;
         this.yCoord = y;
