@@ -1,13 +1,13 @@
-package com.game;
+package com.game.model;
 
-import com.game.Characters.subclasses.Animal;
-import com.game.Characters.subclasses.Player;
-import com.game.Items.Item;
-import com.game.Items.subclasses.Clothing;
-import com.game.Items.subclasses.Consumable;
-import com.game.Items.subclasses.Tool;
-import com.game.Items.subclasses.Weapon;
-import com.game.Merchants.Merchant;
+import com.game.model.Characters.subclasses.Animal;
+import com.game.model.Characters.subclasses.Player;
+import com.game.model.Items.Item;
+import com.game.model.Items.subclasses.Clothing;
+import com.game.model.Items.subclasses.Consumable;
+import com.game.model.Items.subclasses.Tool;
+import com.game.model.Items.subclasses.Weapon;
+import com.game.model.Merchants.Merchant;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,9 +18,12 @@ import java.util.Scanner;
  * @author Jesse Marino
  * 
  * Version/date: 10-30-2024 - 10-31-2024
+ *               11-04-2024 - 11-08-2024
  * 
  * Responsibilities of class:
- * Handles the world state and game logic
+ * Handles the world state and keeps track of game data
+ * 
+ * NOTE: Still needs some setter methods.
  * 
  */
 public class World {
@@ -34,7 +37,7 @@ public class World {
     private Player player;
     
     /**
-     * Constructor for the World class
+     * Constructor for the World class, creates all of the game objects on initialization
      * @param playerName
      */
     public World(String playerName) {
@@ -361,9 +364,9 @@ public class World {
         merchants = new ArrayList<Merchant>();
         // Create the merchants
         Merchant Barbra = new Merchant("Barbra", 100, 100, consumables, Consumable.class);
-        Merchant Carter = new Merchant("Carter", 200, 200, clothing, Clothing.class);
-        Merchant Sampson = new Merchant("Sampson", 300, 300, tools, Tool.class);
-        Merchant Victor = new Merchant("Victor", 400, 400, weapons, Weapon.class);  
+        Merchant Carter = new Merchant("Carter", 1600, 100, clothing, Clothing.class);
+        Merchant Sampson = new Merchant("Sampson", 1600, 1000, tools, Tool.class);
+        Merchant Victor = new Merchant("Victor", 100, 1000, weapons, Weapon.class);  
 
         // Add the merchants to the merchants ArrayList
         merchants.add(Barbra);
@@ -372,41 +375,68 @@ public class World {
         merchants.add(Victor);
     }
     
-    /**
-     * Starts the game
+
+    /** 
+     * Get the player
+     * @return
      */
-    public void startGame() {
-        // TODO: Implement game start logic
+    public Player getPlayer() {
+        return player;
     }
-    
+
     /**
-     * Will be implemented later
+     * Get a list of weapons that are on the world
+     * @return
      */
-    public void loadGame() {
-        // TODO: should load game state from a file
+    public ArrayList<Weapon> getWeapons() {
+        return new ArrayList<Weapon>(weapons);
     }
-    
+
+    /**
+     * Get a list of clothing that are on the world
+     * @return
+     */
+    public ArrayList<Clothing> getClothing() {
+        return new ArrayList<Clothing>(clothing);
+    }
+
+    /**
+     * Get a list of consumables that are on the world
+     * @return
+     */
+    public ArrayList<Consumable> getConsumables() {
+        return new ArrayList<Consumable>(consumables);
+    }   
+
+    /**
+     * Get a list of tools that are on the world
+     * @return
+     */
+    public ArrayList<Tool> getTools() {
+        return new ArrayList<Tool>(tools);
+    }   
+
+    /**
+     * Get a list of animals that are on the world
+     * @return
+     */
+    public ArrayList<Animal> getAnimals() {
+        return new ArrayList<Animal>(animals);
+    }   
+
+    /**
+     * Get a list of merchants that are on the world
+     * @return
+     */
+    public ArrayList<Merchant> getMerchants() {
+        return new ArrayList<Merchant>(merchants);
+    }   
+
     /**
      * Will be implemented later
      */
     public void saveGame() {
         // TODO: Should save game state to a file
-    }
-
-    // Quick test to make sure things are being initialized correctly
-    public static void main(String[] args) {
-        World world = new World("Jesse");
-        System.out.println(world.weapons.size());
-        System.out.println(world.clothing.size());
-        System.out.println(world.consumables.size());
-        System.out.println(world.tools.size());
-        System.out.println(world.animals.size());
-        System.out.println(world.merchants.size());
-        System.out.println(world.player.getName());
-        System.out.println(world.player.getHealth());
-        System.out.println(world.player.getCoins());
-        System.err.println(world.player.getInventory().size());
-        System.err.println(world.player.getWeapon().getName());
     }
 }
 

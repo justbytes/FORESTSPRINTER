@@ -1,6 +1,7 @@
-package com.game.Merchants;
-import com.game.Characters.subclasses.Player;
-import com.game.Items.Item;
+package com.game.model.Merchants;
+import com.game.model.Characters.subclasses.Player;
+import com.game.model.Items.Item;
+
 import java.util.ArrayList;
 
 /**

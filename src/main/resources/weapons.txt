@@ -1,79 +1,79 @@
 Name: Rapier
 Description: A thin, long sword with a sharp blade and a light handle.
 Price: 500
-X: 0
-Y: 0
+X: 950
+Y: 950
 Status: Legendary
 Damage: 50
 
 Name: War Axe
 Description: A large axe with a sharp blade and a heavy handle.
 Price: 75
-X: 0
-Y: 0
+X: 775
+Y: 895  
 Status: Rare
 Damage: 25
 
 Name: War Hammer
 Description: A large hammer with a sharp blade and a heavy handle.
 Price: 50
-X: 0
-Y: 0
+X: 1350
+Y: 825
 Status: Rare
 Damage: 20
 
 Name: Long Sword
 Description: A long sword with a sharp blade and a heavy handle.
 Price: 35
-X: 0
-Y: 0
+X: 400
+Y: 400
 Status: Uncommon
 Damage: 18
 
 Name: Scimitar
 Description: A curved sword with a sharp blade and a light handle.
 Price: 35
-X: 0
-Y: 0
+X: 785
+Y: 1050
 Status: Uncommon
 Damage: 15
 
 Name: Short Sword
 Description: A small sword with a sharp blade and a light handle.
 Price: 20
-X: 0
-Y: 0
+X: 1050
+Y: 200
 Status: Common
 Damage: 10
 
 Name: Dagger
 Description: A small, sharp dagger with a light handle.
 Price: 10
-X: 0
-Y: 0
+X: 100
+Y: 60
 Status: Common
 Damage: 5
 
 Name: Broad Sword
 Description: A large sword with a sharp blade and a heavy handle.
 Price: 10
-X: 0
-Y: 0
+X: 600
+Y: 200  
 Status: Common
 Damage: 10
 
 Name: Battle Axe
 Description: A large axe with a sharp blade and a light handle.
 Price: 15
-X: 0
-Y: 0
+X: 200
+Y: 1000
 Status: Common
 Damage: 15
 
 Name: Mace
 Description: A heavy mace with a sharp blade and a medium handle.
 Price: 15
-X: 0
-Y: 0
+X: 800
+Y: 1100
 Status: Common
 Damage: 15

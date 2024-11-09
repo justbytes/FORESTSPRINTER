@@ -1,6 +1,6 @@
-package com.game.Characters.subclasses;
-import com.game.Characters.Character;
-import com.game.Items.subclasses.Weapon;
+package com.game.model.Characters.subclasses;
+import com.game.model.Characters.Character;
+import com.game.model.Items.subclasses.Weapon;
 
 /**
  * Lead Author(s):

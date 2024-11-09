@@ -3,15 +3,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 
-import com.game.Characters.Character;
-import com.game.Characters.subclasses.Animal;
-import com.game.Characters.subclasses.Player;
-import com.game.Items.Item;
-import com.game.Items.subclasses.Clothing;
-import com.game.Items.subclasses.Consumable;
-import com.game.Items.subclasses.Tool;
-import com.game.Items.subclasses.Weapon;
-import com.game.Merchants.Merchant;
+import com.game.model.Characters.Character;
+import com.game.model.Characters.subclasses.Animal;
+import com.game.model.Characters.subclasses.Player;
+import com.game.model.Items.Item;
+import com.game.model.Items.subclasses.Clothing;
+import com.game.model.Items.subclasses.Consumable;
+import com.game.model.Items.subclasses.Tool;
+import com.game.model.Items.subclasses.Weapon;
+import com.game.model.Merchants.Merchant;
 
 /**
  * Lead Author(s):
@@ -70,7 +70,6 @@ class ModelTests
         Clothing shirt = new Clothing("Shirt", "A shirt you can wear", 10, 100, 30, "Common", 10, "top");
         Clothing pants = new Clothing("Pants", "Pants you can wear", 10, 100, 30, "Common", 10, "bottom");
         Weapon sword = new Weapon("Sword", "A sword you can use to fight", 10, 100, 30, "Common", 50);
-        Weapon bite = new Weapon("Bite", "Animals bite", 10, 100, 30, "NA", 10);
         Tool axe = new Tool("Axe", "A tool you can use to chop wood", 10, 100, 30, "Common", "woodcutting");
         Consumable apple = new Consumable("Apple", "An apple you can eat", 10, 100, 30, "Common", 10);
         Character character = new Character("player", 100, 100, 100, 25, sword);
@@ -85,11 +84,11 @@ class ModelTests
 
         // Movement tests
         character.moveUp();
-        assertEquals(101, character.getCoords()[1]);
+        assertEquals(125, character.getCoords()[1]);
         character.moveDown();
         assertEquals(100, character.getCoords()[1]);
         character.moveLeft();
-        assertEquals(99, character.getCoords()[0]);
+        assertEquals(75, character.getCoords()[0]);
 
         // Health tests
         assertEquals(100, character.getHealth());

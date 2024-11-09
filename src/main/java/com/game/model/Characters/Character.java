@@ -1,5 +1,5 @@
-package com.game.Characters;
-import com.game.Items.subclasses.Weapon;
+package com.game.model.Characters;
+import com.game.model.Items.subclasses.Weapon;
 
 /**
  * Lead Author(s):
@@ -111,28 +111,28 @@ public class Character {
      * Move the character up
      */
     public void moveUp() {
-        yCoord++;
+        yCoord += movementSpeed;
     }
 
     /**
      * Move the character down
      */
     public void moveDown() {
-        yCoord--;
+        yCoord -= movementSpeed;
     }
 
     /**
      * Move the character left
      */
     public void moveLeft() {
-        xCoord--;
+        xCoord -= movementSpeed;
     }
 
     /**
      * Move the character right
      */
     public void moveRight() {
-        xCoord++;
+        xCoord += movementSpeed;
     }
 
     /**

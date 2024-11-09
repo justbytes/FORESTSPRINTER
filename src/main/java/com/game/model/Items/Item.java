@@ -1,4 +1,4 @@
-package com.game.Items;
+package com.game.model.Items;
 /**
 * 
  * Lead Author(s):

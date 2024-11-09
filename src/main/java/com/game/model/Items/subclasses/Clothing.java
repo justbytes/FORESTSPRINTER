@@ -1,6 +1,6 @@
-package com.game.Items.subclasses;
+package com.game.model.Items.subclasses;
 
-import com.game.Items.Item;
+import com.game.model.Items.Item;
 
 /**
 * 

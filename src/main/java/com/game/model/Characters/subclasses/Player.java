@@ -1,11 +1,11 @@
-package com.game.Characters.subclasses;
+package com.game.model.Characters.subclasses;
 import java.util.ArrayList;
 
-import com.game.Characters.Character;
-import com.game.Items.Item;
-import com.game.Items.subclasses.Clothing;
-import com.game.Items.subclasses.Consumable;
-import com.game.Items.subclasses.Weapon;
+import com.game.model.Characters.Character;
+import com.game.model.Items.Item;
+import com.game.model.Items.subclasses.Clothing;
+import com.game.model.Items.subclasses.Consumable;
+import com.game.model.Items.subclasses.Weapon;
 
 /**
 * 
