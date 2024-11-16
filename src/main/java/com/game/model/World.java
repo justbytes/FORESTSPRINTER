@@ -392,12 +392,20 @@ public class World {
         return new ArrayList<Weapon>(weapons);
     }
 
+    public void setWeapons(ArrayList<Weapon> weapons) {
+        this.weapons = weapons;
+    }
+
     /**
      * Get a list of clothing that are on the world
      * @return
      */
     public ArrayList<Clothing> getClothing() {
         return new ArrayList<Clothing>(clothing);
+    }
+
+    public void setClothing(ArrayList<Clothing> clothing) {
+        this.clothing = clothing;
     }
 
     /**
@@ -408,6 +416,10 @@ public class World {
         return new ArrayList<Consumable>(consumables);
     }   
 
+    public void setConsumables(ArrayList<Consumable> consumables) {
+        this.consumables = consumables;
+    }
+
     /**
      * Get a list of tools that are on the world
      * @return
@@ -416,6 +428,10 @@ public class World {
         return new ArrayList<Tool>(tools);
     }   
 
+    public void setTools(ArrayList<Tool> tools) {
+        this.tools = tools;
+    }
+
     /**
      * Get a list of animals that are on the world
      * @return
@@ -423,6 +439,10 @@ public class World {
     public ArrayList<Animal> getAnimals() {
         return new ArrayList<Animal>(animals);
     }   
+
+    public void setAnimals(ArrayList<Animal> animals) {
+        this.animals = animals;
+    }
 
     /**
      * Get a list of merchants that are on the world

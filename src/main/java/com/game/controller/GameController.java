@@ -2,16 +2,19 @@ package com.game.controller;
 
 import com.game.model.World;
 import com.game.model.Characters.subclasses.Player;
+import com.game.model.Items.Item;
 import com.game.view.GameScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import java.util.Iterator;
 
 /**
 * 
@@ -54,6 +57,8 @@ public class GameController {
         inputMap.put(KeyStroke.getKeyStroke("S"), "moveDown");
         inputMap.put(KeyStroke.getKeyStroke("A"), "moveLeft");
         inputMap.put(KeyStroke.getKeyStroke("D"), "moveRight");
+        inputMap.put(KeyStroke.getKeyStroke("TAB"), "toggleInventory");
+        inputMap.put(KeyStroke.getKeyStroke("F"), "interact");
 
         // Event listener for the W key
         actionMap.put("moveUp", new AbstractAction() {
@@ -88,6 +93,24 @@ public class GameController {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Moving right");
                 handleKeyPress(KeyEvent.VK_D);
+            }
+        });
+
+        // Handle the TAB key press
+        actionMap.put("toggleInventory", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Toggling inventory");
+                toggleInventory();
+            }
+        });
+
+        // Handle the F key press
+        actionMap.put("interact", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Interacting");
+                interact();
             }
         });
     }
@@ -125,6 +148,10 @@ public class GameController {
                 if (isValidPosition(x + moveSpeed, y)) x += moveSpeed;
                 updatePlayerPosition(x, y);
                 break;
+            // Toggle inventory
+            case KeyEvent.VK_TAB:
+                toggleInventory();
+                break;
         }  
     }
 
@@ -148,6 +175,56 @@ public class GameController {
     private void updatePlayerPosition(int x, int y) {
         world.getPlayer().setCoords(x, y);
         gameScreen.updateCamera(x, y);
+    }
+
+    /**
+     * Toggles the inventory
+     */
+    private void toggleInventory() {
+        // TODO: Implement inventory toggle
+    }
+
+    /**
+     * Interacts with an object in the player's vicinity
+     */
+    private void interact() {
+        Player player = world.getPlayer();
+        int[] playerCoords = player.getCoords();
+        
+
+        // Check for items in range and try to collect them
+        checkAndCollectItems(world.getWeapons(), playerCoords);
+        checkAndCollectItems(world.getTools(), playerCoords);
+        checkAndCollectItems(world.getConsumables(), playerCoords);
+        checkAndCollectItems(world.getClothing(), playerCoords);
+    }
+
+    /**
+     * Helper method to check and collect items within range
+     * @param items List of items to check
+     * @param playerCoords Player's current coordinates
+     */
+    private <T extends Item> void checkAndCollectItems(ArrayList<T> items, int[] playerCoords) {
+        Iterator<T> iterator = items.iterator();
+        while (iterator.hasNext()) {
+            T item = iterator.next();
+            int[] itemCoords = item.getCoords();
+            
+            // Calculate distance between player and item
+            double distance = Math.sqrt(
+                Math.pow(playerCoords[0] - itemCoords[0], 2) +
+                Math.pow(playerCoords[1] - itemCoords[1], 2)
+            );
+
+            // If item is within range, try to collect it
+            
+            if (world.getPlayer().collectItem(item)) {
+                iterator.remove(); // Remove item from world if successfully collected
+                System.out.println("Collected " + item.getName());
+            } else {
+                System.out.println("Inventory is full!");
+            }
+        }
     }
 
     /**
