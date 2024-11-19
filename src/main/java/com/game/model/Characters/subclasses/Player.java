@@ -101,8 +101,6 @@ public class Player extends Character {
         return clothingTop.getProtection() + clothingBottom.getProtection();
     }
 
-   
-
     /**
      * Get the inventory of the player
      * @return
@@ -120,7 +118,9 @@ public class Player extends Character {
      * @return
      */
     public boolean collectItem(Item item) {
-
+        System.out.println("Inventory size: " + inventory.size());
+        System.out.println("Item: " + item.getName());
+        
         // Check if the inventory has less than 20 items before adding
         if (inventory.size() < 20) {
             inventory.add(item);
