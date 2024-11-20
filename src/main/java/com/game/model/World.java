@@ -346,7 +346,7 @@ public class World {
         inventory.add(consumables.get(4));
 
         // Create a starting weapon
-        Weapon weapon = weapons.get(6); // Dagger
+        Weapon weapon = weapons.get(1); // Dagger
 
         // Create a starting clothing set
         Clothing clothShirt = clothing.get(0);

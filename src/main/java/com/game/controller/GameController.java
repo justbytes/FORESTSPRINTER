@@ -1,6 +1,7 @@
 package com.game.controller;
 
 import com.game.model.World;
+import com.game.model.Characters.subclasses.Animal;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 import com.game.model.Items.subclasses.Clothing;
@@ -12,6 +13,8 @@ import com.game.view.InventoryScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
@@ -67,7 +70,19 @@ public class GameController {
         inputMap.put(KeyStroke.getKeyStroke("D"), "moveRight");
         inputMap.put(KeyStroke.getKeyStroke("I"), "toggleInventory");
         inputMap.put(KeyStroke.getKeyStroke("F"), "interact");
+        inputMap.put(KeyStroke.getKeyStroke("J"), "attack");
 
+
+        // Event listener for the mouse click
+        gameScreen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    System.out.println("Mouse clicked");
+                    attack();
+                }
+            }
+        });
         // Event listener for the W key
         actionMap.put("moveUp", new AbstractAction() {
             @Override
@@ -119,6 +134,14 @@ public class GameController {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Interacting");
                 interact();
+            }
+        });
+
+        actionMap.put("attack", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Attacking");
+                attack();
             }
         });
     }
@@ -252,7 +275,8 @@ public class GameController {
             // Check for collision 
             if (playerLeft < itemRight && playerRight > itemLeft &&
                 playerTop < itemBottom && playerBottom > itemTop) {
-                // If the player can collect the item
+                // If the player can collect the item and the inventory is not full
+                // remove the item from the world
                 if (world.getPlayer().collectItem(item)) {
                     if (item instanceof Weapon) {
                         ArrayList<Weapon> updatedWeapons = world.getWeapons();
@@ -277,6 +301,55 @@ public class GameController {
                 }
             }
         }
+    }
+
+
+    private void attack() {
+        // Get the player and player coordinates from the world
+        Player player = world.getPlayer();
+        int[] playerCoords = player.getCoords();
+        Weapon weapon = player.getWeapon();
+
+        // Get the animals in the world
+        ArrayList<Animal> animals = world.getAnimals();
+
+        Iterator<Animal> iterator = animals.iterator();
+
+        while (iterator.hasNext()) {
+            Animal animal = iterator.next();
+            
+            // Get the animal's coordinates
+            int[] animalCoords = animal.getCoords();
+
+            // Get player and item boundaries
+            int playerLeft = playerCoords[0];
+            int playerRight = playerCoords[0] + 25; 
+            int playerTop = playerCoords[1];
+            int playerBottom = playerCoords[1] + 25; 
+            
+            // Get animal boundaries
+            int animalLeft = animalCoords[0];
+            int animalRight = animalCoords[0] + 25;  
+            int animalTop = animalCoords[1];
+            int animalBottom = animalCoords[1] + 25;
+            
+            // Check for collision 
+            if (playerLeft < animalRight && playerRight > animalLeft &&
+                playerTop < animalBottom && playerBottom > animalTop) {
+
+                animal.decreaseHealth(weapon.getDamage());
+                // If the player can collect the animal and the inventory is not full
+                // remove the animal from the world
+                if (animal.getHealth() <= 0) {
+                    ArrayList<Animal> updatedAnimals = world.getAnimals();
+                    updatedAnimals.remove(animal);
+                    world.setAnimals(updatedAnimals);
+                    System.out.println("Animal " + animal.getName() + " has been killed!");
+                } 
+            }
+
+        }
+
     }
 
     /**
