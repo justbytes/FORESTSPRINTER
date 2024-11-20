@@ -19,6 +19,7 @@ import com.game.model.Items.Item;
 
 public class InventoryScreen extends JFrame {
     // Instance variables
+    private boolean visable = false;
     private Player player;
     private JPanel inventoryPanel;
     
@@ -66,6 +67,14 @@ public class InventoryScreen extends JFrame {
         revalidate();
         repaint();
     }
+
+    /**
+     * Returns the visibility of the inventory screen
+     * @return
+     */
+    public boolean isVisible() {
+        return visable;
+    }
     
     /**
      * Shows the inventory screen
@@ -73,6 +82,7 @@ public class InventoryScreen extends JFrame {
     public void showInventory() {
         updateInventory();
         setVisible(true);
+        visable = true;
     }
     
     /**
@@ -80,5 +90,6 @@ public class InventoryScreen extends JFrame {
      */
     public void hideInventory() {
         setVisible(false);
+        visable = false;
     }
 }

@@ -3,6 +3,10 @@ package com.game.controller;
 import com.game.model.World;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
+import com.game.model.Items.subclasses.Clothing;
+import com.game.model.Items.subclasses.Consumable;
+import com.game.model.Items.subclasses.Tool;
+import com.game.model.Items.subclasses.Weapon;
 import com.game.view.GameScreen;
 import com.game.view.InventoryScreen;
 
@@ -35,7 +39,7 @@ public class GameController {
     private World world;
     private GameScreen gameScreen;
     private InventoryScreen inventoryScreen;
-    private boolean isInventoryOpen = false;
+    
 
     /**
      * Constructor for the GameController class
@@ -187,18 +191,16 @@ public class GameController {
      */
     private void toggleInventory() {
         if (inventoryScreen == null) {
-            // Initialize inventory screen if it hasn't been created yet
             inventoryScreen = new InventoryScreen(world.getPlayer());
         }
         
         // Toggle the inventory screen visibility
-        if (isInventoryOpen) {
+        if (inventoryScreen.isVisible()) {
             inventoryScreen.hideInventory();
         } else {
             inventoryScreen.showInventory();
         }
-        // set the inventory screen visibility
-        isInventoryOpen = !isInventoryOpen;
+       
     }
 
     /**
@@ -252,8 +254,23 @@ public class GameController {
                 playerTop < itemBottom && playerBottom > itemTop) {
                 // If the player can collect the item
                 if (world.getPlayer().collectItem(item)) {
-                    // Remove item from the list
-                    iterator.remove();
+                    if (item instanceof Weapon) {
+                        ArrayList<Weapon> updatedWeapons = world.getWeapons();
+                        updatedWeapons.remove(item);
+                        world.setWeapons(updatedWeapons);
+                    } else if (item instanceof Tool) {
+                        ArrayList<Tool> updatedTools = world.getTools();
+                        updatedTools.remove(item);
+                        world.setTools(updatedTools);
+                    } else if (item instanceof Consumable) {
+                        ArrayList<Consumable> updatedConsumables = world.getConsumables();
+                        updatedConsumables.remove(item);
+                        world.setConsumables(updatedConsumables);
+                    } else if (item instanceof Clothing) {
+                        ArrayList<Clothing> updatedClothing = world.getClothing();
+                        updatedClothing.remove(item);
+                        world.setClothing(updatedClothing);
+                    }
                     System.out.println("Collected " + item.getName());
                 } else {
                     System.out.println("Inventory is full!");
