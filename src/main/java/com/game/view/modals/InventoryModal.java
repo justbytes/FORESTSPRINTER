@@ -1,4 +1,4 @@
-package com.game.view;
+package com.game.view.modals;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ import com.game.model.Items.Item;
  * Extends JFrame
  */
 
-public class InventoryScreen extends JFrame {
+public class InventoryModal extends JFrame {
     // Instance variables
     private boolean visable = false;
     private Player player;
@@ -27,7 +27,7 @@ public class InventoryScreen extends JFrame {
      * Constructor for the InventoryScreen class
      * @param player
      */
-    public InventoryScreen(Player player) {
+    public InventoryModal(Player player) {
         this.player = player;
 
         // Set the JFrame properties

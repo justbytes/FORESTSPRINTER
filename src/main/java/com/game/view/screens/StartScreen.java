@@ -1,6 +1,9 @@
-package com.game.view;
+package com.game.view.screens;
 
 import javax.swing.*;
+
+import com.game.view.Game;
+
 import java.awt.*;
 
 /**

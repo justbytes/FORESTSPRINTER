@@ -1,4 +1,4 @@
-package com.game.view;
+package com.game.view.modals;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +6,7 @@ import com.game.model.Merchants.Merchant;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 import java.util.ArrayList;
+import java.util.concurrent.Flow;
 
 /**
 * 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * Extends JFrame
  */
 
-public class MerchantScreen extends JFrame {
+public class MerchantModal extends JFrame {
     private JPanel mainPanel;
     private JTabbedPane tabbedPane;
     private JPanel buyPanel;
@@ -30,7 +31,7 @@ public class MerchantScreen extends JFrame {
     private Player player;
     private boolean visible = false;
 
-    public MerchantScreen(Merchant merchant, Player player) {
+    public MerchantModal(Merchant merchant, Player player) {
         this.merchant = merchant;
         this.player = player;
         
@@ -61,44 +62,37 @@ public class MerchantScreen extends JFrame {
         tabbedPane.addTab("Sell Items", new JScrollPane(sellPanel));
         
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
-        add(mainPanel);
+
+        add(mainPanel);   
         
-        // Create the content
-        createBuyPanel();
+        createBuyPanel();   
         createSellPanel();
     }
     
     private void createBuyPanel() {
-        buyPanel = new JPanel();
-        buyPanel.setLayout(new GridLayout(5, 4, 10, 10)); // Single column, multiple rows with gaps
+        
+        buyPanel.setLayout(new GridLayout(0, 2));
         
         ArrayList<Item> merchantInventory = merchant.getInventory();
         System.out.println("Merchant inventory size: " + merchantInventory.size());
         
-        if (merchantInventory.isEmpty()) {
-            JButton emptyButton = new JButton("Empty");
-            emptyButton.setEnabled(false);
-            buyPanel.add(emptyButton);
-        } else {
-            for (Item item : merchantInventory) {
-                JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                
-                JButton itemButton = new JButton(item.getName() + " - " + item.getPrice() + " coins");
-                itemButton.addActionListener(e -> {
-                    merchant.sellItem(player, item);
-                    updateDisplay();
-                });
-                
-                itemPanel.add(itemButton);
-                buyPanel.add(itemPanel);
-                mainPanel.add(buyPanel);
-            }
+        for (Item item : merchantInventory) {
+            JPanel itemPanel = new JPanel();
+            
+            JButton itemButton = new JButton(item.getName());
+            itemButton.addActionListener(e -> {
+                new ItemModal(this, item);
+            });
+            
+            itemPanel.add(itemButton);
+            buyPanel.add(itemPanel);
+            
         }
     }
     
     private void createSellPanel() {
-        sellPanel = new JPanel();
-        sellPanel.setLayout(new GridLayout(5, 4, 10, 10)); // Single column, multiple rows with gaps
+        
+        sellPanel.setLayout(new GridLayout(0, 2));
         
         ArrayList<Item> playerInventory = player.getInventory();
         System.out.println("Player inventory size: " + playerInventory.size());
@@ -109,12 +103,11 @@ public class MerchantScreen extends JFrame {
             sellPanel.add(emptyButton);
         } else {
             for (Item item : playerInventory) {
-                JPanel itemPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                JPanel itemPanel = new JPanel();
                 
-                JButton itemButton = new JButton(item.getName() + " - " + (item.getPrice() / 2) + " coins");
+                JButton itemButton = new JButton(item.getName());
                 itemButton.addActionListener(e -> {
-                    merchant.buyItem(player, item);
-                    updateDisplay();
+                    new ItemModal(this, item);
                 });
                 
                 itemPanel.add(itemButton);

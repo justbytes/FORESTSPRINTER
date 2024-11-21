@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import com.game.controller.GameController;
 import com.game.model.World;
+import com.game.view.screens.GameScreen;
+import com.game.view.screens.StartScreen;
 
 /**
 * 

@@ -9,9 +9,9 @@ import com.game.model.Items.subclasses.Consumable;
 import com.game.model.Items.subclasses.Tool;
 import com.game.model.Items.subclasses.Weapon;
 import com.game.model.Merchants.Merchant;
-import com.game.view.GameScreen;
-import com.game.view.InventoryScreen;
-import com.game.view.MerchantScreen;
+import com.game.view.modals.InventoryModal;
+import com.game.view.modals.MerchantModal;
+import com.game.view.screens.GameScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -43,8 +43,8 @@ public class GameController {
     // Instance variables
     private World world;
     private GameScreen gameScreen;
-    private InventoryScreen inventoryScreen;
-    private MerchantScreen merchantScreen;
+    private InventoryModal inventoryScreen;
+    private MerchantModal merchantScreen;
     
 
     /**
@@ -216,7 +216,7 @@ public class GameController {
      */
     private void toggleInventory() {
         if (inventoryScreen == null) {
-            inventoryScreen = new InventoryScreen(world.getPlayer());
+            inventoryScreen = new InventoryModal(world.getPlayer());
         }
         
         // Toggle the inventory screen visibility
@@ -341,13 +341,10 @@ public class GameController {
                     merchantScreen.dispose();
                 }
                 
-                    merchantScreen = new MerchantScreen(merchant, player);
+                merchantScreen = new MerchantModal(merchant, player);
+                merchantScreen.showMerchant();
                 
-
-               
-                    merchantScreen.showMerchant();
-              
-            }
+                }
         }
     }
 

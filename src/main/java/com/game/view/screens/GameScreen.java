@@ -1,4 +1,4 @@
-package com.game.view;
+package com.game.view.screens;
 
 import com.game.model.World;
 import com.game.model.Items.subclasses.Tool;
