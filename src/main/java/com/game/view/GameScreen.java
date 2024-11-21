@@ -81,7 +81,6 @@ public class GameScreen extends JPanel {
         }
 
         // Create a size instance variable for each Item then set it to the appropriate size so it can be used to draw and check for collisions
-
         // Draw all weapons in world
         g2d.setColor(Color.MAGENTA);
         for (Weapon weapon : world.getWeapons()) {

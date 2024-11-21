@@ -360,13 +360,17 @@ public class World {
      * Populates the merchants
      */
     public void populateMerchants() {
+        ArrayList<Item> barbraInventory = new ArrayList<Item>(this.consumables);
+        ArrayList<Item> carterInventory = new ArrayList<Item>(this.clothing);
+        ArrayList<Item> sampsonInventory = new ArrayList<Item>(this.tools);
+        ArrayList<Item> victorInventory = new ArrayList<Item>(this.weapons);
 
         merchants = new ArrayList<Merchant>();
         // Create the merchants
-        Merchant Barbra = new Merchant("Barbra", 100, 100, consumables, Consumable.class);
-        Merchant Carter = new Merchant("Carter", 1600, 100, clothing, Clothing.class);
-        Merchant Sampson = new Merchant("Sampson", 1600, 1000, tools, Tool.class);
-        Merchant Victor = new Merchant("Victor", 100, 1000, weapons, Weapon.class);  
+        Merchant Barbra = new Merchant("Barbra", 100, 100, barbraInventory, Consumable.class);
+        Merchant Carter = new Merchant("Carter", 1600, 100, carterInventory, Clothing.class);
+        Merchant Sampson = new Merchant("Sampson", 1600, 1000, sampsonInventory, Tool.class);
+        Merchant Victor = new Merchant("Victor", 100, 1000, victorInventory, Weapon.class);  
 
         // Add the merchants to the merchants ArrayList
         merchants.add(Barbra);

@@ -8,8 +8,10 @@ import com.game.model.Items.subclasses.Clothing;
 import com.game.model.Items.subclasses.Consumable;
 import com.game.model.Items.subclasses.Tool;
 import com.game.model.Items.subclasses.Weapon;
+import com.game.model.Merchants.Merchant;
 import com.game.view.GameScreen;
 import com.game.view.InventoryScreen;
+import com.game.view.MerchantScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -42,6 +44,7 @@ public class GameController {
     private World world;
     private GameScreen gameScreen;
     private InventoryScreen inventoryScreen;
+    private MerchantScreen merchantScreen;
     
 
     /**
@@ -124,7 +127,7 @@ public class GameController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Toggling inventory");
-                toggleInventory();
+                handleKeyPress(KeyEvent.VK_I);
             }
         });
 
@@ -181,7 +184,6 @@ public class GameController {
                 break;
             // Toggle inventory
             case KeyEvent.VK_I:
-                System.out.println("Toggling inventory");
                 toggleInventory();
                 break;
         }  
@@ -235,10 +237,11 @@ public class GameController {
         int[] playerCoords = player.getCoords();
 
         // Check for items the player can interact with and try to collect them
-        checkAndCollectItems(world.getWeapons(), playerCoords);
-        checkAndCollectItems(world.getTools(), playerCoords);
-        checkAndCollectItems(world.getConsumables(), playerCoords);
-        checkAndCollectItems(world.getClothing(), playerCoords);
+        interactWithItems(world.getWeapons(), playerCoords);
+        interactWithItems(world.getTools(), playerCoords);
+        interactWithItems(world.getConsumables(), playerCoords);
+        interactWithItems(world.getClothing(), playerCoords);
+        interactWithMerchant(world.getMerchants(), player);
     }
 
     /**
@@ -246,7 +249,7 @@ public class GameController {
      * @param items List of items to check
      * @param playerCoords Player's current coordinates
      */
-    private <T extends Item> void checkAndCollectItems(ArrayList<T> items, int[] playerCoords) {
+    private <T extends Item> void interactWithItems(ArrayList<T> items, int[] playerCoords) {
 
         // Reference: https://www.w3schools.com/java/java_iterator.asp
         // Using an iterator to iterate through the items list and remove the item if it is collected
@@ -304,6 +307,53 @@ public class GameController {
     }
 
 
+    /**
+     * Interacts with a merchant
+     */
+    private void interactWithMerchant(ArrayList<Merchant> merchants, Player player) {
+        int[] playerCoords = player.getCoords();
+        Iterator<Merchant> iterator = merchants.iterator();
+
+        // While there are items to be checked
+        while (iterator.hasNext()) {
+            Merchant merchant = iterator.next();
+
+            // Get the item's coordinates
+            int[] merchantCoords = merchant.getCoords();
+
+            // Get player and item boundaries
+            int playerLeft = playerCoords[0];
+            int playerRight = playerCoords[0] + 25; 
+            int playerTop = playerCoords[1];
+            int playerBottom = playerCoords[1] + 25; 
+            
+            // Get item boundaries
+            int merchantLeft = merchantCoords[0];
+            int merchantRight = merchantCoords[0] + 50;  
+            int merchantTop = merchantCoords[1];
+            int merchantBottom = merchantCoords[1] + 100;
+
+
+            if (playerLeft < merchantRight && playerRight > merchantLeft &&
+                playerTop < merchantBottom && playerBottom > merchantTop) {
+                
+                if (merchantScreen != null) {
+                    merchantScreen.dispose();
+                }
+                
+                    merchantScreen = new MerchantScreen(merchant, player);
+                
+
+               
+                    merchantScreen.showMerchant();
+              
+            }
+        }
+    }
+
+    /**
+     * Attacks an animal with the player's weapon
+     */
     private void attack() {
         // Get the player and player coordinates from the world
         Player player = world.getPlayer();
