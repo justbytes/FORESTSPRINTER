@@ -6,15 +6,13 @@ import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 
 /**
-* 
  * Lead Author(s):
  * @author Jesse Marino
  * 
- * Version/date: 11-15-2024
+ * Version/date: 11-20-2024 11-22-2024
  * 
  * Responsibilities of class:
- * GUI for the player's inventory screen that can be displayed by pressing I
- * Extends JFrame
+ * Creates the GUI modal for the player's inventory screen where they will be able to view and manage their inventory
  */
 
 public class InventoryModal extends JFrame {
@@ -24,7 +22,7 @@ public class InventoryModal extends JFrame {
     private JPanel inventoryPanel;
     
     /**
-     * Constructor for the InventoryScreen class
+     * Constructor for the InventoryModal class
      * @param player
      */
     public InventoryModal(Player player) {
@@ -51,15 +49,18 @@ public class InventoryModal extends JFrame {
 
         // Add items from player's inventory
         for (Item item : player.getInventory()) {
+            // Creates a button for each item in the inventory
             JButton itemButton = new JButton(item.getName());
-            itemButton.setToolTipText("Right-click for options");
+            // Adds the button to the inventory panel
             inventoryPanel.add(itemButton);
         }
         
         // Fill remaining slots with empty panels
         int remainingSlots = 20 - player.getInventory().size();
         for (int i = 0; i < remainingSlots; i++) {
+            // Creates a button for each empty slot in the inventory
             JButton emptyButton = new JButton("Empty");
+            // Adds the button to the inventory panel
             inventoryPanel.add(emptyButton);
         }
         

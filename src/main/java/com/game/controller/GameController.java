@@ -66,7 +66,7 @@ public class GameController {
         InputMap inputMap = gameScreen.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = gameScreen.getActionMap();
 
-        // Set up WASD bindings
+        // Set up WASD bindings along with attack, interact, and toggle inventory
         inputMap.put(KeyStroke.getKeyStroke("W"), "moveUp");
         inputMap.put(KeyStroke.getKeyStroke("S"), "moveDown");
         inputMap.put(KeyStroke.getKeyStroke("A"), "moveLeft");
@@ -76,16 +76,6 @@ public class GameController {
         inputMap.put(KeyStroke.getKeyStroke("J"), "attack");
 
 
-        // Event listener for the mouse click
-        gameScreen.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    System.out.println("Mouse clicked");
-                    attack();
-                }
-            }
-        });
         // Event listener for the W key
         actionMap.put("moveUp", new AbstractAction() {
             @Override
@@ -122,7 +112,7 @@ public class GameController {
             }
         });
 
-        // Handle the TAB key press
+        // Handle the I key press
         actionMap.put("toggleInventory", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,11 +130,23 @@ public class GameController {
             }
         });
 
+        // Handle the J key press
         actionMap.put("attack", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Attacking");
                 attack();
+            }
+        });
+
+        // Event listener for the mouse click which will be used to attack
+        gameScreen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    System.out.println("Mouse clicked");
+                    attack();
+                }
             }
         });
     }
@@ -236,7 +238,7 @@ public class GameController {
         Player player = world.getPlayer();
         int[] playerCoords = player.getCoords();
 
-        // Check for items the player can interact with and try to collect them
+        // Check for items or merchants the player can interact with and try to collect them
         interactWithItems(world.getWeapons(), playerCoords);
         interactWithItems(world.getTools(), playerCoords);
         interactWithItems(world.getConsumables(), playerCoords);
@@ -308,43 +310,50 @@ public class GameController {
 
 
     /**
-     * Interacts with a merchant
+     * Interacts with a merchant to buy and sell items
+     * Will create a merchant modal if the player interacts with a merchant
      */
     private void interactWithMerchant(ArrayList<Merchant> merchants, Player player) {
+        // Get the player's coordinates
         int[] playerCoords = player.getCoords();
+
+        // Iterate through the merchants
         Iterator<Merchant> iterator = merchants.iterator();
 
-        // While there are items to be checked
+        // While there are merchants to be checked
         while (iterator.hasNext()) {
+            // Get the next merchant
             Merchant merchant = iterator.next();
 
-            // Get the item's coordinates
+            // Get the merchant's coordinates
             int[] merchantCoords = merchant.getCoords();
 
-            // Get player and item boundaries
+            // Get player and merchant boundaries
             int playerLeft = playerCoords[0];
             int playerRight = playerCoords[0] + 25; 
             int playerTop = playerCoords[1];
             int playerBottom = playerCoords[1] + 25; 
             
-            // Get item boundaries
+            // Get merchant boundaries
             int merchantLeft = merchantCoords[0];
             int merchantRight = merchantCoords[0] + 50;  
             int merchantTop = merchantCoords[1];
             int merchantBottom = merchantCoords[1] + 100;
 
-
+            // Check for collision 
             if (playerLeft < merchantRight && playerRight > merchantLeft &&
                 playerTop < merchantBottom && playerBottom > merchantTop) {
                 
+                // If the merchant modal is already open, dispose of it
                 if (merchantScreen != null) {
                     merchantScreen.dispose();
                 }
                 
+                // Create a new merchant modal
                 merchantScreen = new MerchantModal(merchant, player);
                 merchantScreen.showMerchant();
                 
-                }
+            }
         }
     }
 
@@ -360,15 +369,18 @@ public class GameController {
         // Get the animals in the world
         ArrayList<Animal> animals = world.getAnimals();
 
+        // Iterate through the animals
         Iterator<Animal> iterator = animals.iterator();
 
+        // While there are animals to be checked
         while (iterator.hasNext()) {
+            // Get the next animal
             Animal animal = iterator.next();
             
             // Get the animal's coordinates
             int[] animalCoords = animal.getCoords();
 
-            // Get player and item boundaries
+            // Get player and animal boundaries
             int playerLeft = playerCoords[0];
             int playerRight = playerCoords[0] + 25; 
             int playerTop = playerCoords[1];
@@ -384,9 +396,10 @@ public class GameController {
             if (playerLeft < animalRight && playerRight > animalLeft &&
                 playerTop < animalBottom && playerBottom > animalTop) {
 
+                // Decrease the animal's health by the weapon's damage
                 animal.decreaseHealth(weapon.getDamage());
-                // If the player can collect the animal and the inventory is not full
-                // remove the animal from the world
+
+                // If the player can kills the animal remove the animal from the world
                 if (animal.getHealth() <= 0) {
                     ArrayList<Animal> updatedAnimals = world.getAnimals();
                     updatedAnimals.remove(animal);
@@ -394,9 +407,7 @@ public class GameController {
                     System.out.println("Animal " + animal.getName() + " has been killed!");
                 } 
             }
-
         }
-
     }
 
     /**

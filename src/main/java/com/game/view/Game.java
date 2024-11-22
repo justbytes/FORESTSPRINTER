@@ -8,7 +8,6 @@ import com.game.view.screens.GameScreen;
 import com.game.view.screens.StartScreen;
 
 /**
-* 
  * Lead Author(s):
  * @author Jesse Marino
  * 

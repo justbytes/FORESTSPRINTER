@@ -6,21 +6,20 @@ import com.game.model.Merchants.Merchant;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 import java.util.ArrayList;
-import java.util.concurrent.Flow;
 
 /**
 * 
  * Lead Author(s):
  * @author Jesse Marino
  * 
- * Version/date: 11-15-2024
+ * Version/date: 11-20-2024 11-22-2024
  * 
  * Responsibilities of class:
- * GUI for the merchant trading screen that can be displayed by pressing F near a merchant
- * Extends JFrame
+ * Creates the GUI modal for the merchant trading screen that can be displayed allows for buying and selling of items
  */
 
 public class MerchantModal extends JFrame {
+    // Instance variables
     private JPanel mainPanel;
     private JTabbedPane tabbedPane;
     private JPanel buyPanel;
@@ -31,15 +30,22 @@ public class MerchantModal extends JFrame {
     private Player player;
     private boolean visible = false;
 
+    /**
+     * Constructor for the MerchantModal class
+     * @param merchant
+     * @param player
+     */
     public MerchantModal(Merchant merchant, Player player) {
         this.merchant = merchant;
         this.player = player;
-        
+
+        // Set the JFrame properties
         setTitle("Trading with " + merchant.getName());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 500);
         setLocationRelativeTo(null);
         
+        // Initialize the main panel
         mainPanel = new JPanel(new BorderLayout());
         
         // Create coins panel at the top
@@ -50,6 +56,7 @@ public class MerchantModal extends JFrame {
         coinsPanel.add(new JLabel(" | "));
         coinsPanel.add(merchantCoinsLabel);
         
+        // Add the coins panel to the main panel
         mainPanel.add(coinsPanel, BorderLayout.NORTH);
         
         // Initialize panels
@@ -61,14 +68,21 @@ public class MerchantModal extends JFrame {
         tabbedPane.addTab("Buy Items", new JScrollPane(buyPanel));
         tabbedPane.addTab("Sell Items", new JScrollPane(sellPanel));
         
+        // Add the tabbed pane to the main panel
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
+        // Add the main panel to the JFrame
         add(mainPanel);   
         
+        // Create the buy panel
         createBuyPanel();   
+        // Create the sell panel
         createSellPanel();
     }
     
+    /**
+     * Creates the buy panel which displays the items the merchant has for sale
+     */
     private void createBuyPanel() {
         
         buyPanel.setLayout(new GridLayout(0, 2));
@@ -90,6 +104,9 @@ public class MerchantModal extends JFrame {
         }
     }
     
+    /**
+     * Creates the sell panel which displays the items the player has to sell
+     */
     private void createSellPanel() {
         
         sellPanel.setLayout(new GridLayout(0, 2));
@@ -116,6 +133,9 @@ public class MerchantModal extends JFrame {
         }
     }
     
+    /**
+     * Updates the display of the merchant modal
+     */
     private void updateDisplay() {
         playerCoinsLabel.setText("Your Coins: " + player.getCoins());
         merchantCoinsLabel.setText("Merchant Coins: " + merchant.getCoins());
@@ -133,16 +153,26 @@ public class MerchantModal extends JFrame {
         sellPanel.repaint();
     }
     
+    /**
+     * Checks if the merchant modal is visible
+     * @return visible
+     */
     public boolean isVisible() {
         return visible;
     }
-    
+
+    /**
+     * Shows the merchant modal
+     */
     public void showMerchant() {
         updateDisplay();
         setVisible(true);
         visible = true;
     }
     
+    /**
+     * Hides the merchant modal
+     */
     public void hideMerchant() {
         setVisible(false);
         visible = false;
