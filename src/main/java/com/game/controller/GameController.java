@@ -1,6 +1,19 @@
 package com.game.controller;
 
-import com.game.model.World;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
+
 import com.game.model.Characters.subclasses.Animal;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
@@ -9,23 +22,10 @@ import com.game.model.Items.subclasses.Consumable;
 import com.game.model.Items.subclasses.Tool;
 import com.game.model.Items.subclasses.Weapon;
 import com.game.model.Merchants.Merchant;
+import com.game.model.World;
 import com.game.view.modals.InventoryModal;
 import com.game.view.modals.MerchantModal;
 import com.game.view.screens.GameScreen;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
-
-import java.util.Iterator;
 
 /**
 * 
@@ -227,7 +227,6 @@ public class GameController {
         } else {
             inventoryScreen.showInventory();
         }
-       
     }
 
     /**
@@ -285,24 +284,24 @@ public class GameController {
                 if (world.getPlayer().collectItem(item)) {
                     if (item instanceof Weapon) {
                         ArrayList<Weapon> updatedWeapons = world.getWeapons();
-                        updatedWeapons.remove(item);
+                        updatedWeapons.remove((Weapon) item);
                         world.setWeapons(updatedWeapons);
                     } else if (item instanceof Tool) {
                         ArrayList<Tool> updatedTools = world.getTools();
-                        updatedTools.remove(item);
+                        updatedTools.remove((Tool) item);
                         world.setTools(updatedTools);
                     } else if (item instanceof Consumable) {
                         ArrayList<Consumable> updatedConsumables = world.getConsumables();
-                        updatedConsumables.remove(item);
+                        updatedConsumables.remove((Consumable) item);
                         world.setConsumables(updatedConsumables);
                     } else if (item instanceof Clothing) {
                         ArrayList<Clothing> updatedClothing = world.getClothing();
-                        updatedClothing.remove(item);
+                        updatedClothing.remove((Clothing) item);
                         world.setClothing(updatedClothing);
                     }
                     System.out.println("Collected " + item.getName());
                 } else {
-                    System.out.println("Inventory is full!");
+                    JOptionPane.showMessageDialog(null, "Your inventory is full! Try selling or dropping some items");  
                 }
             }
         }

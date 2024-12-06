@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * 
  */
 public class Merchant {
-
+    // Instance variables
     private String name;
     private Class<? extends Item> favoriteItemType; // Consumable, Clothing, Tool, Weapon etc...
     private int xCoord;
@@ -102,12 +102,12 @@ public class Merchant {
      * @param item
      * @return
      */
-    public boolean buyItem(Player player, Item item) {
+    public boolean sellItem(Player player, Item item) {
         int price = item.getPrice();
         if (coins >= price) {
             // If the merchant's favorite item type is the same as the item's type, increase the price by 30%
             if (item.getClass().equals(favoriteItemType)) {
-                price = (int) (price * 1.3); // 30% price increase
+                price = (int) (price * 1.15); // 15% price increase
             }
             coins -= price;
             player.addCoins(price);
@@ -116,7 +116,6 @@ public class Merchant {
 
             return true;
         } else {
-            System.out.println("Not enough coins to buy " + item.getName());
             return false;
         }
     }
@@ -126,16 +125,22 @@ public class Merchant {
      * @param player
      * @param item
      */
-    public void sellItem(Player player, Item item) {
+    public boolean buyItem(Player player, Item item) {
+
+        if (player.getInventory().size() >= 20) {
+            return false;
+        }
 
         int price = item.getPrice();
 
         if (player.getCoins() >= price) {
-            // If the merchant's favorite item type is the same as the item's type, decrease the price by 30%
             player.removeCoins(price);
             coins += price;
             player.collectItem(item);
             removeItem(item);
+            return true;
+        } else {
+            return false;
         }
     }
 

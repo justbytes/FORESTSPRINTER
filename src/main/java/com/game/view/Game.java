@@ -1,6 +1,6 @@
 package com.game.view;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import com.game.controller.GameController;
 import com.game.model.World;
@@ -17,7 +17,6 @@ import com.game.view.screens.StartScreen;
  * The main class for the game, extends JFrame and interacts with the start screen and game screen
  * 
  */
-
 public class Game extends JFrame {
     // Instance variables
     private StartScreen startScreen;

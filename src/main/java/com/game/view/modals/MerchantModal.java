@@ -1,11 +1,20 @@
 package com.game.view.modals;
 
-import javax.swing.*;
-import java.awt.*;
-import com.game.model.Merchants.Merchant;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
-import java.util.ArrayList;
+import com.game.model.Merchants.Merchant;
 
 /**
 * 
@@ -84,23 +93,26 @@ public class MerchantModal extends JFrame {
      * Creates the buy panel which displays the items the merchant has for sale
      */
     private void createBuyPanel() {
-        
+        // Set the panel layout
         buyPanel.setLayout(new GridLayout(0, 2));
         
+        // Get the merchant's inventory
         ArrayList<Item> merchantInventory = merchant.getInventory();
-        System.out.println("Merchant inventory size: " + merchantInventory.size());
         
+        // Loop through the merchant's inventory and add a button for each item
         for (Item item : merchantInventory) {
             JPanel itemPanel = new JPanel();
-            
             JButton itemButton = new JButton(item.getName());
+
+            // Add an action listener to the item button
             itemButton.addActionListener(e -> {
-                new ItemModal(this, item);
+                ItemModal itemModal = new ItemModal(this, merchant, this.player, item, true);
+                itemModal.setVisible(true);
             });
             
+            // Add the items to the panels
             itemPanel.add(itemButton);
             buyPanel.add(itemPanel);
-            
         }
     }
     
@@ -108,25 +120,30 @@ public class MerchantModal extends JFrame {
      * Creates the sell panel which displays the items the player has to sell
      */
     private void createSellPanel() {
-        
+        // Set the panel layout
         sellPanel.setLayout(new GridLayout(0, 2));
         
+        // Get the player's inventory
         ArrayList<Item> playerInventory = player.getInventory();
-        System.out.println("Player inventory size: " + playerInventory.size());
         
+        // If the player's inventory is empty, add a disabled button to the sell panel
         if (playerInventory.isEmpty()) {
             JButton emptyButton = new JButton("Your inventory is empty");
             emptyButton.setEnabled(false);
             sellPanel.add(emptyButton);
         } else {
+            // Loop through the player's inventory and add a button for each item
             for (Item item : playerInventory) {
                 JPanel itemPanel = new JPanel();
-                
                 JButton itemButton = new JButton(item.getName());
+
+                // Add an action listener to the item button
                 itemButton.addActionListener(e -> {
-                    new ItemModal(this, item);
+                   ItemModal itemModal = new ItemModal(this, merchant, player, item, false);
+                   itemModal.setVisible(true);
                 });
                 
+                // Add the items to panels
                 itemPanel.add(itemButton);
                 sellPanel.add(itemPanel);
             }
@@ -136,7 +153,8 @@ public class MerchantModal extends JFrame {
     /**
      * Updates the display of the merchant modal
      */
-    private void updateDisplay() {
+    public void updateDisplay() {
+        // Update the player and merchant coins labels
         playerCoinsLabel.setText("Your Coins: " + player.getCoins());
         merchantCoinsLabel.setText("Merchant Coins: " + merchant.getCoins());
         

@@ -188,16 +188,16 @@ class ModelTests
 
         // Buy Item from player
         assertEquals(inventory, merchant.getInventory());
-        assertEquals(true, merchant.buyItem(player, playerInventory.get(0)));
-        assertEquals(1000 - (int) (playerInventory.get(0).getPrice() * 1.3), merchant.getCoins());
-        assertEquals(25 + (int) (playerInventory.get(0).getPrice() * 1.3), player.getCoins());
+        assertEquals(true, merchant.sellItem(player, playerInventory.get(0)));
+        assertEquals(1000 - (int) (playerInventory.get(0).getPrice() * 1.15), merchant.getCoins());
+        assertEquals(25 + (int) (playerInventory.get(0).getPrice() * 1.15), player.getCoins());
         assertEquals(7, merchant.getInventory().size());
         assertEquals(2, player.getInventory().size());
 
         // Sell Item to player
-        merchant.sellItem(player, merchant.getInventory().get(0));
-        assertEquals(1000 - (int) (playerInventory.get(0).getPrice() * 1.3) + 10, merchant.getCoins());
-        assertEquals(25 + (int) (playerInventory.get(0).getPrice() * 1.3) - 10, player.getCoins());
+        merchant.buyItem(player, merchant.getInventory().get(0));
+        assertEquals(1000 - (int) (playerInventory.get(0).getPrice() * 1.15) + 10, merchant.getCoins());
+        assertEquals(25 + (int) (playerInventory.get(0).getPrice() * 1.15) - 10, player.getCoins());
         assertEquals(6, merchant.getInventory().size());
         assertEquals(3, player.getInventory().size());
     }

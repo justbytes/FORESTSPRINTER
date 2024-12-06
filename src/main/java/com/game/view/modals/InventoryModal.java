@@ -1,7 +1,11 @@
 package com.game.view.modals;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 
@@ -14,7 +18,6 @@ import com.game.model.Items.Item;
  * Responsibilities of class:
  * Creates the GUI modal for the player's inventory screen where they will be able to view and manage their inventory
  */
-
 public class InventoryModal extends JFrame {
     // Instance variables
     private boolean visable = false;

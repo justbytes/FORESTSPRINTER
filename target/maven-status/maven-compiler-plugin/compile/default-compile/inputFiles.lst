@@ -1,0 +1,17 @@
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/controller/GameController.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Characters/Character.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Characters/subclasses/Animal.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Characters/subclasses/Player.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Items/Item.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Items/subclasses/Clothing.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Items/subclasses/Consumable.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Items/subclasses/Tool.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Items/subclasses/Weapon.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/Merchants/Merchant.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/model/World.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/view/Game.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/view/modals/InventoryModal.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/view/modals/ItemModal.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/view/modals/MerchantModal.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/view/screens/GameScreen.java
+/home/jess/Desktop/CISC 191/Project/FORESTSPRINTER/src/main/java/com/game/view/screens/StartScreen.java
