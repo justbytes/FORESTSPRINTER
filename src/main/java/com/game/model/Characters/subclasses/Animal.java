@@ -27,7 +27,7 @@ public class Animal extends Character {
      * @param rabid
      */
     public Animal(String name, int health, int xCoord, int yCoord, int movementSpeed, boolean rabid) {
-        super(name, health, xCoord, yCoord, movementSpeed, weapon);
+        super(name, health, xCoord, yCoord, movementSpeed);
         this.rabid = rabid;
     }
 

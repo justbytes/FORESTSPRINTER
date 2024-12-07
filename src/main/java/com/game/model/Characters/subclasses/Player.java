@@ -37,10 +37,8 @@ public class Player extends Character {
      * @param inventory
      * @param coins
      */
-    public Player(String name, int health, int xCoord, int yCoord, int movementSpeed, Weapon weapon, Clothing clothingBottom, Clothing clothingTop, ArrayList<Item> inventory, int coins) {
-        super(name, health, xCoord, yCoord, movementSpeed, weapon);
-        this.clothingBottom = clothingBottom;
-        this.clothingTop = clothingTop;
+    public Player(String name, int health, int xCoord, int yCoord, int movementSpeed, ArrayList<Item> inventory, int coins) {
+        super(name, health, xCoord, yCoord, movementSpeed);
         this.inventory = inventory;
         this.coins = coins;
     }
@@ -81,16 +79,38 @@ public class Player extends Character {
      * Set the bottom clothing of the player
      * @param clothingBottom
      */
-    public void setClothingBottom(Clothing clothingBottom) {
-        this.clothingBottom = clothingBottom;
+    public void setClothingBottom(Clothing newClothingBottom) {    
+        if (this.clothingBottom == null) {
+            this.clothingBottom = newClothingBottom;
+            this.clothingBottom.equip();
+        } 
+
+        if (this.clothingBottom.isEquipped()) {
+            this.clothingBottom.equip();
+        }
+
+        this.clothingBottom = newClothingBottom;
+        this.clothingBottom.equip();
+
     }
 
     /**
      * Set the top clothing of the player
      * @param clothingTop
      */
-    public void setClothingTop(Clothing clothingTop) {
-        this.clothingTop = clothingTop;
+    public void setClothingTop(Clothing newClothingTop) {
+        if (this.clothingTop == null) {
+            this.clothingTop = newClothingTop;
+            this.clothingTop.equip();
+        } 
+
+        if (this.clothingTop.isEquipped()) {
+            this.clothingTop.equip();
+        }
+
+        this.clothingTop = newClothingTop;
+        this.clothingTop.equip();
+        
     }
 
     /**
@@ -152,21 +172,8 @@ public class Player extends Character {
      * @param weapon
      * @return
      */
-    public boolean equipWeapon(Weapon weapon) {
-
-        // Get the current weapon
-        Weapon currentWeapon = super.getWeapon();
-
-        // Check if the player can store the current weapon in their inventory
-        boolean addToInventory = collectItem(currentWeapon);
-
-        // If the player has space, equip the weapon and return true
-        if (addToInventory) {
-            super.setWeapon(weapon);
-            return true;    
-        } else {
-            return false;
-        }
+    public void equipWeapon(Weapon weapon) {
+        super.setWeapon(weapon);
     }
 
     /**

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
+import com.game.model.World;
 
 /**
  * Lead Author(s):
@@ -20,6 +21,7 @@ import com.game.model.Items.Item;
  */
 public class InventoryModal extends JFrame {
     // Instance variables
+    private World world;
     private boolean visable = false;
     private Player player;
     private JPanel inventoryPanel;
@@ -28,7 +30,8 @@ public class InventoryModal extends JFrame {
      * Constructor for the InventoryModal class
      * @param player
      */
-    public InventoryModal(Player player) {
+    public InventoryModal(World world, Player player) {
+        this.world = world;
         this.player = player;
 
         // Set the JFrame properties
@@ -41,6 +44,7 @@ public class InventoryModal extends JFrame {
         inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new GridLayout(5, 4, 10, 10)); // 5x4 grid with gaps
         add(inventoryPanel);
+        setVisible(true);
     }
     
     /**
@@ -54,6 +58,13 @@ public class InventoryModal extends JFrame {
         for (Item item : player.getInventory()) {
             // Creates a button for each item in the inventory
             JButton itemButton = new JButton(item.getName());
+
+            // Adds an action listener to the button
+            itemButton.addActionListener(e -> {
+                // Creates an item modal
+                ItemModal itemModal = new ItemModal(world, this, player, item);
+            });
+
             // Adds the button to the inventory panel
             inventoryPanel.add(itemButton);
         }

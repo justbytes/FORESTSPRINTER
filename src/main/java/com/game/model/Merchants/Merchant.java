@@ -127,12 +127,14 @@ public class Merchant {
      */
     public boolean buyItem(Player player, Item item) {
 
+        // Return false if the player's inventory is full
         if (player.getInventory().size() >= 20) {
             return false;
         }
-
+        // Get the price of the item
         int price = item.getPrice();
 
+        // If the player has enough coins, remove the coins and add the item to the player's inventory
         if (player.getCoins() >= price) {
             player.removeCoins(price);
             coins += price;

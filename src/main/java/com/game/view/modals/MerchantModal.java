@@ -15,6 +15,7 @@ import javax.swing.JTabbedPane;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 import com.game.model.Merchants.Merchant;
+import com.game.model.World;
 
 /**
 * 
@@ -29,6 +30,7 @@ import com.game.model.Merchants.Merchant;
 
 public class MerchantModal extends JFrame {
     // Instance variables
+    private World world;
     private JPanel mainPanel;
     private JTabbedPane tabbedPane;
     private JPanel buyPanel;
@@ -44,9 +46,10 @@ public class MerchantModal extends JFrame {
      * @param merchant
      * @param player
      */
-    public MerchantModal(Merchant merchant, Player player) {
+    public MerchantModal(Merchant merchant, Player player, World world) {
         this.merchant = merchant;
         this.player = player;
+        this.world = world;
 
         // Set the JFrame properties
         setTitle("Trading with " + merchant.getName());
@@ -106,7 +109,7 @@ public class MerchantModal extends JFrame {
 
             // Add an action listener to the item button
             itemButton.addActionListener(e -> {
-                ItemModal itemModal = new ItemModal(this, merchant, this.player, item, true);
+                ItemModal itemModal = new ItemModal(world, this, merchant, this.player, item, true);
                 itemModal.setVisible(true);
             });
             
@@ -139,7 +142,7 @@ public class MerchantModal extends JFrame {
 
                 // Add an action listener to the item button
                 itemButton.addActionListener(e -> {
-                   ItemModal itemModal = new ItemModal(this, merchant, player, item, false);
+                   ItemModal itemModal = new ItemModal(world, this, merchant, player, item, false);
                    itemModal.setVisible(true);
                 });
                 

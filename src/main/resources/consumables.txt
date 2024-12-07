@@ -7,7 +7,7 @@ Status: Legendary
 HealingProps: 75
 
 Name: Beef Stew
-Description: A stew that heals 50 health.
+Description: A stew that heals 40 health.
 Price: 100
 X: 1500
 Y: 350

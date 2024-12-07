@@ -149,8 +149,8 @@ public class World {
                     y = Integer.parseInt(line.substring(3).trim());
                 } else if (line.startsWith("Status: ")) {
                     status = line.substring(8).trim();
-                } else if (line.startsWith("Defense: ")) {
-                    defense = Integer.parseInt(line.substring(9).trim());
+                } else if (line.startsWith("Protection: ")) {
+                    defense = Integer.parseInt(line.substring(12).trim());
                 } else if (line.startsWith("Type: ")) {
                     type = line.substring(6).trim();
                     
@@ -209,7 +209,7 @@ public class World {
                 } else if (line.startsWith("Status: ")) {
                     status = line.substring(8).trim();
                 } else if (line.startsWith("HealingProps: ")) {
-                    healAmount = Integer.parseInt(line.substring(15).trim());
+                    healAmount = Integer.parseInt(line.substring(14).trim());
     
                     // Create a new Consumable object and add it to the consumables ArrayList
                     consumables.add(new Consumable(name, description, price, x, y, status, healAmount));
@@ -341,19 +341,24 @@ public class World {
     public void populatePlayer(String playerName) {
         // Create a starting inventory
         ArrayList<Item> inventory = new ArrayList<Item>();
-        inventory.add(tools.get(0));
-        inventory.add(consumables.get(3));
-        inventory.add(consumables.get(4));
-
-        // Create a starting weapon
-        Weapon weapon = weapons.get(1); // Dagger
-
-        // Create a starting clothing set
-        Clothing clothShirt = clothing.get(0);
-        Clothing clothPants = clothing.get(1);
+        Tool playerTool = new Tool("Fishing Rod", "A long rod with a hook and a line.", 10, 0, 0, "Common", "Fishing");
+        Consumable apple = new Consumable("Apple", "An apple that heals 15 health.", 50, 0, 0, "Uncommon", 15);
+        Clothing clothShirt = new Clothing("Cloth Shirt", "A basic cloth shirt", 5, 0, 0, "Common", 5, "Top");
+        Clothing clothPants = new Clothing("Cloth Pants", "A basic cloth pants", 5, 0, 0, "Common", 5, "Bottom");
+        Weapon playerWeapon = new Weapon("Dagger", "A small, sharp dagger with a light handle.", 10, 0, 0, "Common", 5);
+       
+        inventory.add(playerTool);
+        inventory.add(apple);
+        inventory.add(clothShirt);
+        inventory.add(clothPants);
+        inventory.add(playerWeapon);
 
         // Create the player 
-        player = new Player(playerName, 100, 300, 400, 10, weapon, clothPants, clothShirt, inventory, 15);
+        player = new Player(playerName, 100, 300, 400, 10, inventory, 15);
+
+        player.equipWeapon((Weapon) inventory.get(4));
+        player.setClothingTop((Clothing) inventory.get(2));
+        player.setClothingBottom((Clothing) inventory.get(3));
     }
 
     /**

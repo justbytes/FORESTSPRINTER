@@ -18,6 +18,7 @@ public class Item {
     private int yCoords;
     private int price;
     private String name;
+    private boolean isEquiped;
     
 
     /**
@@ -36,6 +37,7 @@ public class Item {
         this.xCoords = x;
         this.yCoords = y;
         this.status = status;
+        this.isEquiped = false;
     }
 
     /**
@@ -70,11 +72,31 @@ public class Item {
         return new int[]{xCoords, yCoords};
     }
 
+    public void setCoords(int[] coords) {
+        this.xCoords = coords[0];
+        this.yCoords = coords[1];
+    }
+
     /**
      * Get the status of the item
      * @return
      */
     public String getStatus() {
         return status;
+    }
+
+    /**
+     * Get the equiped status of the item
+     * @return
+     */
+    public boolean isEquipped() {
+        return isEquiped;
+    }
+    public void equip() {
+        if (isEquiped) {
+            isEquiped = false;
+        } else {
+            isEquiped = true;
+        }
     }
 }

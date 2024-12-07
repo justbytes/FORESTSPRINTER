@@ -218,7 +218,7 @@ public class GameController {
      */
     private void toggleInventory() {
         if (inventoryScreen == null) {
-            inventoryScreen = new InventoryModal(world.getPlayer());
+            inventoryScreen = new InventoryModal(world, world.getPlayer());
         }
         
         // Toggle the inventory screen visibility
@@ -349,7 +349,7 @@ public class GameController {
                 }
                 
                 // Create a new merchant modal
-                merchantScreen = new MerchantModal(merchant, player);
+                merchantScreen = new MerchantModal(merchant, player, world);
                 merchantScreen.showMerchant();
                 
             }

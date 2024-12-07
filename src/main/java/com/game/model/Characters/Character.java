@@ -27,13 +27,12 @@ public class Character {
      * @param movementSpeed
      * @param weapon
      */
-    public Character(String name, int health, int xCoord, int yCoord, int movementSpeed, Weapon weapon) {
+    public Character(String name, int health, int xCoord, int yCoord, int movementSpeed) {
         this.name = name;
         this.health = health;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         this.movementSpeed = movementSpeed;
-        this.weapon = weapon;
     }
 
     /**
@@ -155,7 +154,19 @@ public class Character {
      * Set the weapon of the character
      * @param weapon
      */
-    public void setWeapon(Weapon weapon) {
-        this.weapon = weapon;
+    public void setWeapon(Weapon newWeapon) {
+
+        // If the character doesn't have a weapon, equip it
+        if (this.weapon == null) {
+            this.weapon = newWeapon;
+            this.weapon.equip();
+        }
+
+        // If the character already has a weapon, unequip the old weapon and equip the new weapon
+        if (this.weapon.isEquipped()) {
+            this.weapon.equip();
+        }
+        this.weapon = newWeapon;
+        this.weapon.equip();
     }
 }
