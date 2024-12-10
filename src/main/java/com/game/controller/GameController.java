@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -13,6 +14,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 import com.game.model.Characters.subclasses.Animal;
 import com.game.model.Characters.subclasses.Player;
@@ -45,6 +47,8 @@ public class GameController {
     private GameScreen gameScreen;
     private InventoryModal inventoryScreen;
     private MerchantModal merchantScreen;
+    private Timer gameTimer;
+    private static final int FRAME_DELAY = 16; // ~60 FPS
     
 
     /**
@@ -56,6 +60,7 @@ public class GameController {
         this.world = world;
         this.gameScreen = gameScreen;
         initializeKeyBindings();
+        initializeGameLoop();
     }
 
     /**
@@ -419,9 +424,165 @@ public class GameController {
     }
 
     /**
-     * Focuses the game screen
+     * Initializes the game loop timer
+     */
+    private void initializeGameLoop() {
+        // Create the game timer
+        gameTimer = new Timer(FRAME_DELAY, e -> {
+            moveAnimals();
+            gameScreen.repaint();
+        });
+    }
+
+    /**
+     * Moves the animals in the world randomly and checks to see if they attack the player
+     */
+    public void moveAnimals() {
+        // Get the animals in the world
+        ArrayList<Animal> animals = world.getAnimals();
+
+        // Get a random number between 0 and the number of animals
+        int randomAnimalIndex = (int) (Math.random() * animals.size());
+        
+        // Get the animal at the random index
+        Animal animal = animals.get(randomAnimalIndex);
+        
+        // Get a random movement direction and spaces to move
+        int randomMovementDirection = (int) (Math.random() * 4);
+        int randomMovementSpaces = (int) (Math.random() * 3);
+        
+        // Move the animal the random number of spaces
+        for (int i = 0; i < randomMovementSpaces; i++) {
+            // TODO Add a timeout/sleep for 1 second to slow the animals down
+
+            // Get the animal's current coordinates
+            int[] currentCoords = animal.getCoords();
+            int x = currentCoords[0];
+            int y = currentCoords[1];
+            int moveSpeed = animal.getMovementSpeed();
+
+            // Move the animal in the random direction as long as it is a valid position 
+            switch (randomMovementDirection) {
+                // Try moving up
+                case 0: 
+                    if (isValidPosition(x, y - moveSpeed)) {
+                        animal.moveUp();
+                    // If can't move up, try moving down instead
+                    } else if (isValidPosition(x, y + moveSpeed)){
+                        animal.moveDown();
+                    // If can't move up or down, try moving left
+                    } else if (isValidPosition(x - moveSpeed, y)){
+                        animal.moveLeft();
+                    // If can't move left, try moving right
+                    } else if (isValidPosition(x + moveSpeed, y)) {
+                        animal.moveRight();
+                    }
+                    break;
+                // Try moving down
+                case 1: 
+                    if (isValidPosition(x, y + moveSpeed)) {
+                        animal.moveDown();
+                    // If can't move down, try moving up instead
+                    } else if (isValidPosition(x, y - moveSpeed)) {
+                        animal.moveUp();
+                    // If can't move down or up, try moving left
+                    } else if (isValidPosition(x - moveSpeed, y)) {
+                        animal.moveLeft();
+                    // If can't move left, try moving right
+                    } else if (isValidPosition(x + moveSpeed, y)) {
+                        animal.moveRight();
+                    }
+                    break;
+                // Try moving left
+                case 2: 
+                    if (isValidPosition(x - moveSpeed, y)) {
+                        animal.moveLeft();
+                    // If can't move left, try moving right instead
+                    } else if (isValidPosition(x + moveSpeed, y)) {
+                        animal.moveRight();
+                    } else if (isValidPosition(x, y - moveSpeed)) {
+                        animal.moveUp();
+                    } else if (isValidPosition(x, y + moveSpeed)) {
+                        animal.moveDown();
+                    }
+                    break;
+                // Try moving right
+                case 3: 
+                    if (isValidPosition(x + moveSpeed, y)) {
+                        animal.moveRight();
+                    // If can't move right, try moving left instead
+                    } else if (isValidPosition(x - moveSpeed, y)) {
+                        animal.moveLeft();
+                    } else if (isValidPosition(x, y - moveSpeed)) {
+                        animal.moveUp();
+                    } else if (isValidPosition(x, y + moveSpeed)) {
+                        animal.moveDown();
+                    }
+                    break;
+            }
+            // See if the animal can attack the player
+            checkAnimalAttack(animal);
+        }
+    }
+
+    /**
+     * Checks for animal attacks against the player
+     * @param animal
+     */
+    private void checkAnimalAttack(Animal animal) {
+        // Get the player and player coordinates from the world
+        Player player = world.getPlayer();
+        int[] playerCoords = player.getCoords();
+
+        // Get the animal's coordinates
+        int[] animalCoords = animal.getCoords();
+
+        // Get player and animal boundaries
+        int playerLeft = playerCoords[0];
+        int playerRight = playerCoords[0] + 25; 
+        int playerTop = playerCoords[1];
+        int playerBottom = playerCoords[1] + 25; 
+        
+        // Get animal boundaries
+        int animalLeft = animalCoords[0];
+        int animalRight = animalCoords[0] + 25;  
+        int animalTop = animalCoords[1];
+        int animalBottom = animalCoords[1] + 25;
+
+        // Check for collision 
+        if (playerLeft < animalRight && playerRight > animalLeft &&
+        playerTop < animalBottom && playerBottom > animalTop) {
+
+
+            // Get a random number between 0 and 10
+            Random random = new Random();
+            int randomAttack = random.nextInt(10);
+
+            // Animals have to roll a 5 or higher to attack the player
+            if (randomAttack >= 5) {
+                player.decreaseHealth(animal.getAttackPower());
+
+                // Stop the game if the player is killed
+                if (player.getHealth() <= 0) {
+                    JOptionPane.showMessageDialog(null, "You have been killed!");
+                    stopGame();
+                }
+            }
+        }
+    }
+
+    /**
+     * Starts the game and game loop
      */
     public void startGame() {
         gameScreen.requestFocusInWindow();
+        gameTimer.start();
+    }
+
+    /**
+     * Stops the game loop
+     */
+    public void stopGame() {
+        gameTimer.stop();
     }
 }

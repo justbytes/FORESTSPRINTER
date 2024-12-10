@@ -80,7 +80,7 @@ public class Character {
      * @return
      */
     public int decreaseHealth(int amount) {
-        if (health - amount < 0) {
+        if (health - amount <= 0) {
             health = 0;
         } else {
             health = health - amount;

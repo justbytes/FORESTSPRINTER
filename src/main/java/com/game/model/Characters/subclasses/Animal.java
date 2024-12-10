@@ -1,6 +1,5 @@
 package com.game.model.Characters.subclasses;
 import com.game.model.Characters.Character;
-import com.game.model.Items.subclasses.Weapon;
 
 /**
  * Lead Author(s):
@@ -13,7 +12,6 @@ import com.game.model.Items.subclasses.Weapon;
  */
 public class Animal extends Character {
     // Instance variables
-    private static Weapon weapon = new Weapon("Bite", "A bite from an animal", 0, 0, 0, "Common", 15);
     private boolean rabid;
 
     /**

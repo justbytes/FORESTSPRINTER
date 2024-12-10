@@ -319,8 +319,18 @@ public class World {
                 } else if (line.startsWith("Rabid: ")) {
                     rabid = Boolean.parseBoolean(line.substring(7).trim());
                     
+                    // Create a new Weapon object
+                    Weapon weapon = new Weapon("Bite", "A bite from an animal", 0, 0, 0, "Common", 15);
+                    
+                    // Create a new Animal object
+                    Animal animal = new Animal(name, health, x, y, movementSpeed, rabid);
+                    
+                    // Equip the weapon
+                    animal.setWeapon(weapon);
+                    
                     // Create a new Animal object and add it to the animals ArrayList
-                    animals.add(new Animal(name, health, x, y, movementSpeed, rabid));
+                    animals.add(animal);
+                    
                 }
             }
             
