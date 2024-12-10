@@ -92,6 +92,10 @@ public class Item {
     public boolean isEquipped() {
         return isEquiped;
     }
+
+    /**
+     * Equip the item, changes the equiped status to the opposite of what it currently is
+     */
     public void equip() {
         if (isEquiped) {
             isEquiped = false;

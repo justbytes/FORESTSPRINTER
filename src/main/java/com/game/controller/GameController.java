@@ -300,13 +300,13 @@ public class GameController {
                         world.setClothing(updatedClothing);
                     }
                     System.out.println("Collected " + item.getName());
+                    gameScreen.repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "Your inventory is full! Try selling or dropping some items");  
                 }
             }
         }
     }
-
 
     /**
      * Interacts with a merchant to buy and sell items
@@ -398,11 +398,20 @@ public class GameController {
                 // Decrease the animal's health by the weapon's damage
                 animal.decreaseHealth(weapon.getDamage());
 
-                // If the player can kills the animal remove the animal from the world
+                // If the player kills the animal remove the animal from the world
                 if (animal.getHealth() <= 0) {
+                    // Get the animals
                     ArrayList<Animal> updatedAnimals = world.getAnimals();
+                    
+                    // Remove and update the animals
                     updatedAnimals.remove(animal);
                     world.setAnimals(updatedAnimals);
+
+                    // Increase the player's kills
+                    player.increaseKills();
+
+                    // Repaint the game screen
+                    gameScreen.repaint();
                     System.out.println("Animal " + animal.getName() + " has been killed!");
                 } 
             }

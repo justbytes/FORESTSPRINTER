@@ -1,15 +1,22 @@
 package com.game.view.screens;
 
-import com.game.model.World;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
+import javax.swing.JPanel;
+
+import com.game.model.Characters.subclasses.Animal;
+import com.game.model.Characters.subclasses.Player;
+import com.game.model.Items.subclasses.Clothing;
+import com.game.model.Items.subclasses.Consumable;
 import com.game.model.Items.subclasses.Tool;
 import com.game.model.Items.subclasses.Weapon;
 import com.game.model.Merchants.Merchant;
-import com.game.model.Items.subclasses.Consumable;
-import com.game.model.Items.subclasses.Clothing;
-import com.game.model.Characters.subclasses.Animal;
-
-import javax.swing.*;
-import java.awt.*;
+import com.game.model.World;
 
 /**
 * 
@@ -150,6 +157,33 @@ public class GameScreen extends JPanel {
             25,  // width
             25   // height
         );
+
+        // Set up text rendering
+        g2d.setRenderingHint(
+            RenderingHints.KEY_TEXT_ANTIALIASING,
+            RenderingHints.VALUE_TEXT_ANTIALIAS_ON
+        );
+        
+        // Set font style
+        Font gameFont = new Font("Arial", Font.BOLD, 14);
+        g2d.setFont(gameFont);
+        
+        // Position for stats at bottom of screen
+        int y = VIEWPORT_HEIGHT - 30; // 30 pixels from bottom
+        g2d.setColor(Color.WHITE);
+
+        // Get the player 
+        Player player = world.getPlayer();
+        
+        // Calculate spacing between stats
+        int spacing = VIEWPORT_WIDTH / 5;
+        
+        // Draw stats horizontally
+        g2d.drawString("Player: " + player.getName(), 10, y);
+        g2d.drawString("Health: " + player.getHealth() + "/100", spacing, y);
+        g2d.drawString("Kills: " + player.getKills(), spacing * 2, y);
+        g2d.drawString("Coins: " + player.getCoins(), spacing * 3, y);
+        g2d.drawString("Weapon: " + player.getWeapon().getName(), spacing * 4, y);
     }
 
     /**

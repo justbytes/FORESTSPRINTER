@@ -155,18 +155,18 @@ public class Character {
      * @param weapon
      */
     public void setWeapon(Weapon newWeapon) {
-
         // If the character doesn't have a weapon, equip it
         if (this.weapon == null) {
             this.weapon = newWeapon;
             this.weapon.equip();
-        }
-
-        // If the character already has a weapon, unequip the old weapon and equip the new weapon
-        if (this.weapon.isEquipped()) {
+        } else { 
+            // If the character already has a weapon, unequip the old weapon and equip the new weapon
+            if (this.weapon.isEquipped()) {
+                this.weapon.equip();
+            }
+            // Equip the new weapon
+            this.weapon = newWeapon;
             this.weapon.equip();
-        }
-        this.weapon = newWeapon;
-        this.weapon.equip();
+        }    
     }
 }

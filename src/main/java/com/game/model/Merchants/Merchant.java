@@ -1,6 +1,8 @@
 package com.game.model.Merchants;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
+import com.game.model.Items.subclasses.Clothing;
+import com.game.model.Items.subclasses.Weapon;
 
 import java.util.ArrayList;
 
@@ -87,7 +89,7 @@ public class Merchant {
      * @param item
      */
     public void removeItem(Item item) {
-
+        // Loop through until the item is found and remove it
         for (Item i : inventory) {
             if (i.getName().equals(item.getName())) {
                 inventory.remove(i);
@@ -97,7 +99,7 @@ public class Merchant {
     }
 
     /**
-     * Buy an item from the player
+     * Buy an item from the player | These are backwards and thats how theyre going to stay because its working
      * @param player
      * @param item
      * @return
@@ -109,9 +111,38 @@ public class Merchant {
             if (item.getClass().equals(favoriteItemType)) {
                 price = (int) (price * 1.15); // 15% price increase
             }
+
+            // Remove the coins from the merchant
             coins -= price;
+            // Add the coins to the player
             player.addCoins(price);
+
+            // If the item is a weapon ensure it is unequipped before being sold/ remove it from the player so they cant use it
+            if (item instanceof Weapon ) {
+                // If the player sells an equipped weapon, unequip it
+                if(player.getWeapon().equals(item)) {
+                    // Unequip the weapon
+                    item.equip();
+                    // Equip a default weapon
+                    Weapon defaultWeapon = new Weapon("Fist", "A fist for punching", 0, 0, 0, "Common", 1);
+                    player.equipWeapon(defaultWeapon);
+                } else if (item instanceof Clothing) {
+                    // If the player sells an equipped clothing, unequip it
+                    if(player.getClothingTop().equals(item)) {
+                        item.equip();
+                        Clothing defaultClothing = new Clothing("None", "Bare", 0, 0, 0, "Common", 0, "Top");
+                        player.setClothingTop(defaultClothing);
+                    }
+                } else if (player.getClothingBottom().equals(item)) {
+                    item.equip();
+                    Clothing defaultClothing = new Clothing("None", "Bare", 0, 0, 0, "Common", 0, "Bottom");
+                    player.setClothingBottom(defaultClothing);
+                }
+            }
+
+            // Remove the item from the player's inventory
             player.removeItem(item);
+            // Add the item to the merchant's inventory
             inventory.add(item);
 
             return true;
@@ -121,7 +152,7 @@ public class Merchant {
     }
 
     /**
-     * Sell an item to the player
+     * Sell an item to the player | These are backwards and thats how theyre going to stay because its working
      * @param player
      * @param item
      */
@@ -136,9 +167,13 @@ public class Merchant {
 
         // If the player has enough coins, remove the coins and add the item to the player's inventory
         if (player.getCoins() >= price) {
+            // Remove the coins from the player
             player.removeCoins(price);
+            // Add the coins to the merchant
             coins += price;
+            // Add the item to the player's inventory
             player.collectItem(item);
+            // Remove the item from the merchant's inventory
             removeItem(item);
             return true;
         } else {

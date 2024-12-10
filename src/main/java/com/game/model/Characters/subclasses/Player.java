@@ -23,6 +23,7 @@ public class Player extends Character {
     private Clothing clothingBottom;
     private Clothing clothingTop;
     private int coins;
+    private int kills = 0;
 
     /**
      * Constructor for the Player class
@@ -80,18 +81,20 @@ public class Player extends Character {
      * @param clothingBottom
      */
     public void setClothingBottom(Clothing newClothingBottom) {    
+        // If the player is not wearing any clothing, equip the new clothing
         if (this.clothingBottom == null) {
             this.clothingBottom = newClothingBottom;
             this.clothingBottom.equip();
-        } 
+        } else {
+            // If the player is wearing clothing, unequip it
+            if (this.clothingBottom.isEquipped()) {
+                this.clothingBottom.equip();
+            }
 
-        if (this.clothingBottom.isEquipped()) {
+            // Equip the new clothing
+            this.clothingBottom = newClothingBottom;
             this.clothingBottom.equip();
         }
-
-        this.clothingBottom = newClothingBottom;
-        this.clothingBottom.equip();
-
     }
 
     /**
@@ -99,18 +102,20 @@ public class Player extends Character {
      * @param clothingTop
      */
     public void setClothingTop(Clothing newClothingTop) {
+        // If the player is not wearing any clothing, equip the new clothing
         if (this.clothingTop == null) {
             this.clothingTop = newClothingTop;
             this.clothingTop.equip();
-        } 
+        } else {
+            // If the player is wearing clothing, unequip it
+            if (this.clothingTop.isEquipped()) {
+                this.clothingTop.equip();
+            }
 
-        if (this.clothingTop.isEquipped()) {
+            // Equip the new clothing
+            this.clothingTop = newClothingTop;
             this.clothingTop.equip();
         }
-
-        this.clothingTop = newClothingTop;
-        this.clothingTop.equip();
-        
     }
 
     /**
@@ -126,7 +131,6 @@ public class Player extends Character {
      * @return
      */
     public ArrayList<Item> getInventory() {
-
         // Return a copy of the inventory
         ArrayList<Item> copy = new ArrayList<Item>(inventory);
         return copy;
@@ -155,10 +159,8 @@ public class Player extends Character {
      * @param item
      */
     public void removeItem(Item item) {
-
         // Loop through the inventory and remove the item
         for (Item i : inventory) {
-
             // If the item is found, remove it
             if (i.getName().equals(item.getName())) {
                 inventory.remove(i);
@@ -173,7 +175,7 @@ public class Player extends Character {
      * @return
      */
     public void equipWeapon(Weapon weapon) {
-        super.setWeapon(weapon);
+            super.setWeapon(weapon);
     }
 
     /**
@@ -219,6 +221,21 @@ public class Player extends Character {
 
         // Remove the consumable from the inventory
         removeItem(consumable);
+    }
+
+    /**
+     * Get the kills of the player
+     * @return
+     */
+    public int getKills() {
+        return kills;
+    }
+
+    /**
+     * Increases the kills of the player
+     */
+    public void increaseKills() {
+        kills++;
     }
 }
 

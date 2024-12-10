@@ -31,7 +31,7 @@ public class Game extends JFrame {
         // Set the default close operation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Set the size of the window
-        setSize(800, 600);
+        setSize(810, 610);
         // Set the location of the window
         setLocationRelativeTo(null);
         

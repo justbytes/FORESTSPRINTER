@@ -72,7 +72,8 @@ class ModelTests
         Weapon sword = new Weapon("Sword", "A sword you can use to fight", 10, 100, 30, "Common", 50);
         Tool axe = new Tool("Axe", "A tool you can use to chop wood", 10, 100, 30, "Common", "woodcutting");
         Consumable apple = new Consumable("Apple", "An apple you can eat", 10, 100, 30, "Common", 10);
-        Character character = new Character("player", 100, 100, 100, 25, sword);
+        Character character = new Character("player", 100, 100, 100, 25);
+        character.setWeapon(sword);
 
         // Data tests
         assertEquals("player", character.getName());
@@ -102,15 +103,12 @@ class ModelTests
         inventory.add(axe);
 
         // Player class tests
-        Player player = new Player("player", 100, 100, 100, 25, sword, pants, shirt, inventory, 25);
+        Player player = new Player("player", 100, 100, 100, 25, inventory, 25);
         Clothing shirt01 = new Clothing("Leather Shirt", "A shirt you can wear", 10, 100, 30, "Rare", 15, "top");
         Clothing pants01 = new Clothing("Leather Pants", "Pants you can wear", 10, 100, 30, "Rare", 15, "bottom");
-
-        // Clothing tests
-        assertEquals(shirt, player.getClothingTop());
-        assertEquals(pants, player.getClothingBottom());
         player.setClothingTop(shirt01);
         player.setClothingBottom(pants01);
+        // Clothing tests
         assertEquals(shirt01, player.getClothingTop());
         assertEquals(pants01, player.getClothingBottom());
         
@@ -138,7 +136,7 @@ class ModelTests
 
         // Change Weapon tests
         Weapon newWeapon = new Weapon("War Axe", "A tool you can use to chop wood", 10, 100, 30, "Common", 55);
-        assertEquals(true, player.equipWeapon(newWeapon));
+        player.setWeapon(newWeapon);
         assertEquals(newWeapon, player.getWeapon());
 
         // Animal tests
@@ -166,7 +164,7 @@ class ModelTests
         playerInventory.add(pants);
         playerInventory.add(apple);
         playerInventory.add(axe);
-        Player player = new Player("player", 100, 100, 100, 25, sword, pants, shirt, playerInventory, 25);
+        Player player = new Player("player", 100, 100, 100, 25, playerInventory, 25);
 
         // Merchant setup
         ArrayList<Item> inventory = new ArrayList<Item>();

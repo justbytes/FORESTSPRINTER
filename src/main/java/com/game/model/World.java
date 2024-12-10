@@ -23,8 +23,6 @@ import java.util.Scanner;
  * Responsibilities of class:
  * Handles the world state and keeps track of game data
  * 
- * NOTE: Still needs some setter methods.
- * 
  */
 public class World {
     // Instance variables
