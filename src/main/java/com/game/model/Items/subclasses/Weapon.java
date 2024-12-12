@@ -14,6 +14,7 @@ import com.game.model.Items.Item;
  * 
  */
 public class Weapon extends Item {
+    // Instance variables
     private int damage;
 
     /**

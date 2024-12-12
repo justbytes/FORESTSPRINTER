@@ -200,6 +200,7 @@ public class GameScreen extends JPanel {
         cameraX = Math.max(0, Math.min(cameraX, WORLD_WIDTH - VIEWPORT_WIDTH));
         cameraY = Math.max(0, Math.min(cameraY, WORLD_HEIGHT - VIEWPORT_HEIGHT));
         
+        // Repaint the game screen
         repaint();
     }
 

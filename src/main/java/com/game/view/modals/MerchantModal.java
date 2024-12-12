@@ -3,6 +3,8 @@ package com.game.view.modals;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -12,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import com.game.controller.GameController;
 import com.game.model.Characters.subclasses.Player;
 import com.game.model.Items.Item;
 import com.game.model.Merchants.Merchant;
@@ -40,16 +43,17 @@ public class MerchantModal extends JFrame {
     private Merchant merchant;
     private Player player;
     private boolean visible = false;
-
+    private GameController gameController;
     /**
      * Constructor for the MerchantModal class
      * @param merchant
      * @param player
      */
-    public MerchantModal(Merchant merchant, Player player, World world) {
+    public MerchantModal(Merchant merchant, Player player, World world, GameController gameController) {
         this.merchant = merchant;
         this.player = player;
         this.world = world;
+        this.gameController = gameController;
 
         // Set the JFrame properties
         setTitle("Trading with " + merchant.getName());
@@ -90,6 +94,13 @@ public class MerchantModal extends JFrame {
         createBuyPanel();   
         // Create the sell panel
         createSellPanel();
+
+        // Add a listener to this window so that restarts the gameTimer in the gameController
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                gameController.startGame();
+            }
+        });
     }
     
     /**

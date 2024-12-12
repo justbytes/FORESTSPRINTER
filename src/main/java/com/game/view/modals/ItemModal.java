@@ -223,8 +223,8 @@ public class ItemModal extends JFrame {
         // Create equip item button | players can equip weapons and clothing
         JButton equipButton = new JButton(item.isEquipped() ? "Equipped" : "Equip");
         equipButton.addActionListener(e -> {
+            // Equip the item
             if (item instanceof Weapon) {
-                
                 player.equipWeapon((Weapon) item);
                 hideItem();
             } else if (item instanceof Clothing) {

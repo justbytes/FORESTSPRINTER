@@ -60,6 +60,7 @@ public class World {
         // Create a new Scanner to read the weapons.txt file
         Scanner scan = null;
         
+        // Get the weapons from the weapons.txt file
         try {
             // Get input stream from resources and create Scanner
             InputStream inputStream = getClass().getResourceAsStream("/weapons.txt");
@@ -117,6 +118,7 @@ public class World {
         // Create a new Scanner to read the clothing.txt file
         Scanner scan = null;
         
+        // Get the clothing from the clothing.txt file
         try {
             // Get input stream from resources and create Scanner
             InputStream inputStream = getClass().getResourceAsStream("/clothing.txt");
@@ -177,6 +179,7 @@ public class World {
         // Create a new Scanner to read the consumables.txt file
         Scanner scan = null;
         
+        // Get the consumables from the consumables.txt file
         try {
             // Get input stream from resources and create Scanner
             InputStream inputStream = getClass().getResourceAsStream("/consumables.txt");
@@ -233,6 +236,7 @@ public class World {
         // Create a new Scanner to read the tools.txt file
         Scanner scan = null;
         
+        // Get the tools from the tools.txt file
         try {
             // Get input stream from resources and create Scanner
             InputStream inputStream = getClass().getResourceAsStream("/tools.txt");
@@ -290,6 +294,7 @@ public class World {
         // Create a new Scanner to read the animals.txt file
         Scanner scan = null;
         
+        // Get the animals from the animals.txt file
         try {
             // Get input stream from resources and create Scanner
             InputStream inputStream = getClass().getResourceAsStream("/animals.txt");
@@ -355,6 +360,7 @@ public class World {
         Clothing clothPants = new Clothing("Cloth Pants", "A basic cloth pants", 5, 0, 0, "Common", 5, "Bottom");
         Weapon playerWeapon = new Weapon("Dagger", "A small, sharp dagger with a light handle.", 10, 0, 0, "Common", 5);
        
+        // Add the items to the inventory
         inventory.add(playerTool);
         inventory.add(apple);
         inventory.add(clothShirt);
@@ -364,6 +370,7 @@ public class World {
         // Create the player 
         player = new Player(playerName, 100, 300, 400, 10, inventory, 15);
 
+        // Equip the the gear
         player.equipWeapon((Weapon) inventory.get(4));
         player.setClothingTop((Clothing) inventory.get(2));
         player.setClothingBottom((Clothing) inventory.get(3));
@@ -373,12 +380,15 @@ public class World {
      * Populates the merchants
      */
     public void populateMerchants() {
+        // Create the merchants inventory lists
         ArrayList<Item> barbraInventory = new ArrayList<Item>(this.consumables);
         ArrayList<Item> carterInventory = new ArrayList<Item>(this.clothing);
         ArrayList<Item> sampsonInventory = new ArrayList<Item>(this.tools);
         ArrayList<Item> victorInventory = new ArrayList<Item>(this.weapons);
 
+        // Create the merchants list
         merchants = new ArrayList<Merchant>();
+
         // Create the merchants
         Merchant Barbra = new Merchant("Barbra", 100, 100, barbraInventory, Consumable.class);
         Merchant Carter = new Merchant("Carter", 1600, 100, carterInventory, Clothing.class);
@@ -409,6 +419,10 @@ public class World {
         return new ArrayList<Weapon>(weapons);
     }
 
+    /**
+     * Set the weapons
+     * @param weapons
+     */
     public void setWeapons(ArrayList<Weapon> weapons) {
         this.weapons = weapons;
     }
@@ -421,6 +435,10 @@ public class World {
         return new ArrayList<Clothing>(clothing);
     }
 
+    /**
+     * Set the clothing
+     * @param clothing
+     */
     public void setClothing(ArrayList<Clothing> clothing) {
         this.clothing = clothing;
     }
@@ -433,6 +451,10 @@ public class World {
         return new ArrayList<Consumable>(consumables);
     }   
 
+    /**
+     * Set the consumables
+     * @param consumables
+     */
     public void setConsumables(ArrayList<Consumable> consumables) {
         this.consumables = consumables;
     }
@@ -445,6 +467,10 @@ public class World {
         return new ArrayList<Tool>(tools);
     }   
 
+    /**
+     * Set the tools
+     * @param tools
+     */
     public void setTools(ArrayList<Tool> tools) {
         this.tools = tools;
     }
@@ -457,6 +483,10 @@ public class World {
         return new ArrayList<Animal>(animals);
     }   
 
+    /**
+     * Set the animals
+     * @param animals
+     */
     public void setAnimals(ArrayList<Animal> animals) {
         this.animals = animals;
     }
@@ -468,12 +498,5 @@ public class World {
     public ArrayList<Merchant> getMerchants() {
         return new ArrayList<Merchant>(merchants);
     }   
-
-    /**
-     * Will be implemented later
-     */
-    public void saveGame() {
-        // TODO: Should save game state to a file
-    }
 }
 

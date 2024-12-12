@@ -20,7 +20,6 @@ public class Item {
     private String name;
     private boolean isEquiped;
     
-
     /**
      * Constructor for the Item class
      * @param name

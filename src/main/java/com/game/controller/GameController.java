@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -25,6 +29,7 @@ import com.game.model.Items.subclasses.Tool;
 import com.game.model.Items.subclasses.Weapon;
 import com.game.model.Merchants.Merchant;
 import com.game.model.World;
+import com.game.view.Game;
 import com.game.view.modals.InventoryModal;
 import com.game.view.modals.MerchantModal;
 import com.game.view.screens.GameScreen;
@@ -49,14 +54,15 @@ public class GameController {
     private MerchantModal merchantScreen;
     private Timer gameTimer;
     private static final int FRAME_DELAY = 16; // ~60 FPS
-    
+    private Game game;
 
     /**
      * Constructor for the GameController class
      * @param world
      * @param gameScreen
      */
-    public GameController(World world, GameScreen gameScreen) {
+    public GameController(Game game, World world, GameScreen gameScreen) {
+        this.game = game;
         this.world = world;
         this.gameScreen = gameScreen;
         initializeKeyBindings();
@@ -168,6 +174,7 @@ public class GameController {
         int y = coords[1];
         int moveSpeed = player.getMovementSpeed();
 
+        // Move the player
         switch (keyCode) {
             // Move up
             case KeyEvent.VK_W:
@@ -197,7 +204,7 @@ public class GameController {
     }
 
     /**
-     * TODO: Should stop the player from moving through out of bounds areas, maybe can be used to stop a player from going through a wall 
+     * Should stop characters (animals and player) from moving out of bounds but still needs work
      * @param x
      * @param y
      * @return
@@ -222,6 +229,7 @@ public class GameController {
      * Toggles the inventory screen visibility
      */
     private void toggleInventory() {
+        // If the inventory screen is not already created, create it
         if (inventoryScreen == null) {
             inventoryScreen = new InventoryModal(world, world.getPlayer());
         }
@@ -352,9 +360,12 @@ public class GameController {
                 if (merchantScreen != null) {
                     merchantScreen.dispose();
                 }
+
+                // Stop the game from moving animals
+                stopGame();
                 
                 // Create a new merchant modal
-                merchantScreen = new MerchantModal(merchant, player, world);
+                merchantScreen = new MerchantModal(merchant, player, world, this);
                 merchantScreen.showMerchant();
                 
             }
@@ -453,8 +464,6 @@ public class GameController {
         
         // Move the animal the random number of spaces
         for (int i = 0; i < randomMovementSpaces; i++) {
-            // TODO Add a timeout/sleep for 1 second to slow the animals down
-
             // Get the animal's current coordinates
             int[] currentCoords = animal.getCoords();
             int x = currentCoords[0];
@@ -565,7 +574,7 @@ public class GameController {
                 // Stop the game if the player is killed
                 if (player.getHealth() <= 0) {
                     JOptionPane.showMessageDialog(null, "You have been killed!");
-                    stopGame();
+                    endGame();
                 }
             }
         }
@@ -583,6 +592,43 @@ public class GameController {
      * Stops the game loop
      */
     public void stopGame() {
+        // Stop the game loop
         gameTimer.stop();
+    }
+
+    /**
+     * Ends the game and shows the high score screen
+     */
+    public void endGame() {
+         // Stops the game loop/timer
+         gameTimer.stop();
+
+         // Get player stats
+         Player player = world.getPlayer();
+         String playerName = player.getName();
+         int kills = player.getKills();
+         int inventorySize = player.getInventory().size();
+         int coins = player.getCoins();
+ 
+         // Write the player's stats to the highscores.txt file
+         try {
+            // Create FileWriter in append mode
+            FileWriter fw = new FileWriter("src/main/resources/highscores.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+
+            // Write the stats in CSV format
+            out.println("Name: " + playerName + ", Kills: " + kills + ", Inventory: " + inventorySize + ", Coins: " + coins);
+            
+            // Close the writers
+            out.close();
+            bw.close();
+            fw.close();
+ 
+        } catch (IOException e) {
+            System.err.println("Error writing to highscores file: " + e.getMessage());
+        } finally {
+            game.endGame(playerName);
+        }
     }
 }

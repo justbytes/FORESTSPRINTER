@@ -144,7 +144,6 @@ public class Merchant {
             player.removeItem(item);
             // Add the item to the merchant's inventory
             inventory.add(item);
-
             return true;
         } else {
             return false;
@@ -157,7 +156,6 @@ public class Merchant {
      * @param item
      */
     public boolean buyItem(Player player, Item item) {
-
         // Return false if the player's inventory is full
         if (player.getInventory().size() >= 20) {
             return false;
