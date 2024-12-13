@@ -24,6 +24,7 @@ public class Player extends Character {
     private Clothing clothingTop;
     private int coins;
     private int kills = 0;
+    private int hits = 0;
 
     /**
      * Constructor for the Player class
@@ -51,12 +52,25 @@ public class Player extends Character {
      */
     @Override
     public int decreaseHealth(int amount) {
-        int total;
+
+        // Simulate the armor / clothing breaking after a few hits 
+        if (hits > 10) {
+            return super.decreaseHealth(amount);
+        }
 
         // Calculate the total protection from the clothing
         int totalProtection = totalProtection();
-        total = amount - totalProtection;
-        
+
+        // The hit is zero if the total protection is greater than the amount
+        if (totalProtection > amount) {
+            hits++;
+            return super.decreaseHealth(0);
+        }
+
+        // The hit is the amount minus the total protection
+        int total = amount - totalProtection;
+        hits++;
+
         return super.decreaseHealth(total);
     }
 
@@ -85,15 +99,18 @@ public class Player extends Character {
         if (this.clothingBottom == null) {
             this.clothingBottom = newClothingBottom;
             this.clothingBottom.equip();
+            hits = 0;
         } else {
             // If the player is wearing clothing, unequip it
             if (this.clothingBottom.isEquipped()) {
                 this.clothingBottom.equip();
+                hits = 0;
             }
 
             // Equip the new clothing
             this.clothingBottom = newClothingBottom;
             this.clothingBottom.equip();
+            hits = 0;
         }
     }
 
@@ -106,15 +123,18 @@ public class Player extends Character {
         if (this.clothingTop == null) {
             this.clothingTop = newClothingTop;
             this.clothingTop.equip();
+            hits = 0;
         } else {
             // If the player is wearing clothing, unequip it
             if (this.clothingTop.isEquipped()) {
                 this.clothingTop.equip();
+                hits = 0;
             }
 
             // Equip the new clothing
             this.clothingTop = newClothingTop;
             this.clothingTop.equip();
+            hits = 0;
         }
     }
 
